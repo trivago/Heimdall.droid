@@ -1,0 +1,11 @@
+#Android Studio
+*/build
+*/.idea
+*/.gradle
+
+#Artifacts
+.Thumbs.db
+.DS_Store
+oauth2/local.properties
+
+oauth2/oauth2.iml
