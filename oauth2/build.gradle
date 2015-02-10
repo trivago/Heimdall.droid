@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'me.tatarka:gradle-retrolambda:2.5.0'
+    }
+}
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'LICENSE'
+        exclude 'asm-license.txt'
+        exclude 'NOTICE'
+    }
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.reactivex:rxandroid-framework:0.24.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    androidTestCompile 'com.squareup.assertj:assertj-android:1.0.0'
+    androidTestCompile 'org.mockito:mockito-core:1.9.5'
+    androidTestCompile files('libs/dexmaker-1.1.jar')
+    androidTestCompile files('libs/dexmaker-mockito-1.1.jar')
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = 'de.rheinfabrik'
+        pom.artifactId = 'oauth2'
+        pom.version = '0.1'
+        repository(url: "https://github.com/rheinfabrik/android-oauth")
+    }
+}
