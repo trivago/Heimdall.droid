@@ -1,4 +1,4 @@
-package de.rheinfabrik.oauth2thing;
+package de.rheinfabrik.oauth2;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -12,17 +12,14 @@ public interface OAuth2AccessToken extends Serializable {
 
     /**
      * REQUIRED (https://tools.ietf.org/html/rfc6749#section-5.1)
-     * <p>
      * This method returns a valid access token string.
      *
      * @return - An access token string.
      */
     public String getAccessToken();
 
-
     /**
      * REQUIRED (https://tools.ietf.org/html/rfc6749#section-7.1)
-     * <p>
      * This method returns a valid token type.
      *
      * @return - A token type string.
@@ -40,10 +37,18 @@ public interface OAuth2AccessToken extends Serializable {
     /**
      * OPTIONAL (https://tools.ietf.org/html/rfc6749#section-5.1)
      * Note: If the calendar is null then the library will never automatically refresh the access token!
-     * <p>
      * This method returns an expiration date.
      *
      * @return - A calendar representing the expiration date.
      */
     public Calendar getExpirationDate();
+
+    /**
+     * OPTIONAL
+     * Note: If this method is not implemented, then the library may never automatically refresh the access token!
+     * For the standard implementation take a look at StandardOAuth2AccessToken.
+     *
+     * @param now The calendar for the current time.
+     */
+    public void generateExpirationDate(Calendar now);
 }

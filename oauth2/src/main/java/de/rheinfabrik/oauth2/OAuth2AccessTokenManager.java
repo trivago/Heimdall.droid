@@ -1,4 +1,4 @@
-package de.rheinfabrik.oauth2thing;
+package de.rheinfabrik.oauth2;
 
 import java.util.Calendar;
 
@@ -13,29 +13,26 @@ import rx.Observable;
  *
  * @param <TAccessToken> The access token type.
  */
-public class RxOAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
+public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
 
     // Members
 
-    private final RxOAuth2AccessTokenStorage<TAccessToken> mStorage;
-    private final RxOAuth2AccessTokenProvider<TAccessToken> mProvider;
-    private final String mClientId;
+    private final OAuth2AccessTokenStorage<TAccessToken> mStorage;
+    private final OAuth2AccessTokenProvider<TAccessToken> mProvider;
 
     // Constructor
 
     /**
      * The designated constructor.
      *
-     * @param clientId The client id used to generate and refresh the access token.
      * @param storage  The storage used to store/read the access token.
      * @param provider The provider used to generate or refresh access token.
      */
-    public RxOAuth2AccessTokenManager(String clientId, RxOAuth2AccessTokenStorage<TAccessToken> storage, RxOAuth2AccessTokenProvider<TAccessToken> provider) {
+    public OAuth2AccessTokenManager(OAuth2AccessTokenStorage<TAccessToken> storage, OAuth2AccessTokenProvider<TAccessToken> provider) {
         super();
 
         mStorage = storage;
         mProvider = provider;
-        mClientId = clientId;
     }
 
     // Public API
@@ -57,8 +54,9 @@ public class RxOAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> 
      * @return - A TToken Observable emitting the new access token.
      */
     public Observable<TAccessToken> getNewAccessToken(String username, String password) {
-        return Observable.create(subscriber -> mProvider.getNewAccessToken(username, password, mClientId)
+        return Observable.create(subscriber -> mProvider.getNewAccessToken(username, password)
                 .subscribe(newToken -> {
+                    newToken.generateExpirationDate(Calendar.getInstance());
                     mStorage.storeAccessToken(newToken);
 
                     subscriber.onNext(newToken);
@@ -92,7 +90,10 @@ public class RxOAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> 
 
                         return mProvider
                                 .refreshAccessToken(accessToken.getRefreshToken())
-                                .doOnNext(mStorage::storeAccessToken);
+                                .doOnNext(refreshedAccessToken -> {
+                                    refreshedAccessToken.generateExpirationDate(Calendar.getInstance());
+                                    mStorage.storeAccessToken(refreshedAccessToken);
+                                });
                     })
                     .subscribe(accessToken -> {
                         subscriber.onNext(accessToken);

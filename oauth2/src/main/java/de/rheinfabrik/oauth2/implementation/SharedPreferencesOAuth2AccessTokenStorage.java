@@ -1,9 +1,11 @@
-package de.rheinfabrik.oauth2thing;
+package de.rheinfabrik.oauth2.implementation;
 
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import de.rheinfabrik.oauth2.OAuth2AccessToken;
+import de.rheinfabrik.oauth2.OAuth2AccessTokenStorage;
 import rx.Observable;
 
 /**
@@ -12,7 +14,7 @@ import rx.Observable;
  *
  * @param <TAccessToken> The access token type.
  */
-public class RxSharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> implements RxOAuth2AccessTokenStorage<TAccessToken> {
+public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> implements OAuth2AccessTokenStorage<TAccessToken> {
 
     // Constants
 
@@ -31,7 +33,7 @@ public class RxSharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OA
      * @param sharedPreferences The shared preferences used for saving the access token.
      * @param tokenClass        The actual class of the access token.
      */
-    public RxSharedPreferencesOAuth2AccessTokenStorage(SharedPreferences sharedPreferences, Class tokenClass) {
+    public SharedPreferencesOAuth2AccessTokenStorage(SharedPreferences sharedPreferences, Class tokenClass) {
         super();
 
         mTokenClass = tokenClass;

@@ -1,4 +1,4 @@
-package de.rheinfabrik.oauth2thing;
+package de.rheinfabrik.oauth2;
 
 import rx.Observable;
 
@@ -7,7 +7,7 @@ import rx.Observable;
  *
  * @param <TAccessToken> The access token type.
  */
-public interface RxOAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> {
+public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> {
 
     // Public API
 

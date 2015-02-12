@@ -1,4 +1,4 @@
-package de.rheinfabrik.oauth2thing;
+package de.rheinfabrik.oauth2;
 
 import rx.Observable;
 
@@ -7,7 +7,43 @@ import rx.Observable;
  *
  * @param <TAccessToken> The access token type.
  */
-public interface RxOAuth2AccessTokenProvider<TAccessToken extends OAuth2AccessToken> {
+public interface OAuth2AccessTokenProvider<TAccessToken extends OAuth2AccessToken> {
+
+    // Enums
+
+    /**
+     * Represents the different grant types in oAuth2.
+     */
+    public enum GrantType {
+
+        // Enum Values
+
+        /**
+         * Used for https://tools.ietf.org/html/rfc6749#section-4.3.
+         */
+        PASSWORD("password"),
+
+        /**
+         * Used for https://tools.ietf.org/html/rfc6749#section-6.
+         */
+        REFRESH_TOKEN("refresh_token");
+
+        // Members
+
+        private String mOAuth2Name;
+
+        // Constructor
+
+        GrantType(String oAuth2Name) {
+            mOAuth2Name = oAuth2Name;
+        }
+
+        // Public API
+
+        public String getOAuth2Name() {
+            return mOAuth2Name;
+        }
+    }
 
     // Public API
 
@@ -18,10 +54,9 @@ public interface RxOAuth2AccessTokenProvider<TAccessToken extends OAuth2AccessTo
      *
      * @param username The username to get the access token.
      * @param password The password to get the access token.
-     * @param clientId The clientId to get the access token.
      * @return - An observable emitting the new access token.
      */
-    public abstract Observable<TAccessToken> getNewAccessToken(String username, String password, String clientId);
+    public abstract Observable<TAccessToken> getNewAccessToken(String username, String password);
 
     /**
      * This method is responsible to refresh (https://tools.ietf.org/html/rfc6749#section-6) the

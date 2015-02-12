@@ -1,4 +1,4 @@
-package de.rheinfabrik.oauth2thing.utils;
+package de.rheinfabrik.oauth2.utils;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -32,7 +32,7 @@ public class MockitoObservablesTestCase extends MockitoTestCase {
     }
 
     protected <T> void subscribe(Observable<T> observable) {
-       subscribe(observable, null, null);
+        subscribe(observable, null, null);
     }
 
     protected <T> void subscribe(Observable<T> observable, Action1<T> onNext) {

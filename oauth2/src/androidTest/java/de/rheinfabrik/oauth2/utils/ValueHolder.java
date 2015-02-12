@@ -1,4 +1,4 @@
-package de.rheinfabrik.oauth2thing.utils;
+package de.rheinfabrik.oauth2.utils;
 
 public class ValueHolder<T> {
     public T value = null;

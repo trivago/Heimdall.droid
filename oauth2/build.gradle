@@ -38,7 +38,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -55,13 +54,4 @@ dependencies {
     androidTestCompile 'org.mockito:mockito-core:1.9.5'
     androidTestCompile files('libs/dexmaker-1.1.jar')
     androidTestCompile files('libs/dexmaker-mockito-1.1.jar')
-}
-
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = 'de.rheinfabrik'
-        pom.artifactId = 'oauth2'
-        pom.version = '0.1'
-        repository(url: "https://github.com/rheinfabrik/android-oauth")
-    }
 }
