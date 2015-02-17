@@ -12,8 +12,8 @@ In order to initialize an `OAuth2AccessTokenManager` instance, you need to pass 
 
 ```java 
 
-        SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> storage = new SharedPreferencesOAuth2AccessTokenStorage<>(mySharedPreferences, OAuth2AccessToken.class);
-    OAuth2AccessTokenManager<> manager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage);
+SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> storage = new SharedPreferencesOAuth2AccessTokenStorage<>(mySharedPreferences, OAuth2AccessToken.class);
+OAuth2AccessTokenManager<> manager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage);
 
 ```
 
