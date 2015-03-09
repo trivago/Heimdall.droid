@@ -32,4 +32,9 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      * access token.
      */
     public Observable<Boolean> hasAccessToken();
+
+    /**
+     * Removes the stored access token.
+     */
+    public void removeAccessToken();
 }

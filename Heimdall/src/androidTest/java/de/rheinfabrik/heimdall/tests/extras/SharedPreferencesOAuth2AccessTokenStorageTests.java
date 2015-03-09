@@ -38,6 +38,7 @@ public class SharedPreferencesOAuth2AccessTokenStorageTests extends MockitoObser
 
         when(mEditor.commit()).thenReturn(false);
         when(mEditor.putString(anyString(), anyString())).thenReturn(mEditor);
+        when(mEditor.remove(anyString())).thenReturn(mEditor);
         doNothing().when(mEditor).apply();
 
         when(mSharedPreferences.edit()).thenReturn(mEditor);
@@ -98,6 +99,19 @@ public class SharedPreferencesOAuth2AccessTokenStorageTests extends MockitoObser
         // Then
         assertThat(accessTokenValueHolder.value).isNotNull();
         assertThat(accessTokenValueHolder.value.refreshToken).isEqualTo("tGzv3JOkF0XG5Qx2TlKWIA");
+    }
+
+    public void testThatRemovingTheAccessTokenWorks() {
+
+        // Given
+        SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> storage = new SharedPreferencesOAuth2AccessTokenStorage<>(mSharedPreferences, OAuth2AccessToken.class);
+
+        // When
+        storage.removeAccessToken();
+
+        // Then
+        verify(mEditor).remove("OAuth2AccessToken");
+        verify(mEditor).apply();
     }
 
 }
