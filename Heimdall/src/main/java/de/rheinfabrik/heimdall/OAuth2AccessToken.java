@@ -67,33 +67,24 @@ public class OAuth2AccessToken implements Serializable {
     // equals and hashCode
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OAuth2AccessToken)) return false;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
 
-        OAuth2AccessToken that = (OAuth2AccessToken) o;
+        if (!(other instanceof OAuth2AccessToken)) {
+            return false;
+        }
 
-        if (accessToken != null ? !accessToken.equals(that.accessToken) : that.accessToken != null)
-            return false;
-        if (expirationDate != null ? !expirationDate.equals(that.expirationDate) : that.expirationDate != null)
-            return false;
-        if (expiresIn != null ? !expiresIn.equals(that.expiresIn) : that.expiresIn != null)
-            return false;
-        if (refreshToken != null ? !refreshToken.equals(that.refreshToken) : that.refreshToken != null)
-            return false;
-        if (tokenType != null ? !tokenType.equals(that.tokenType) : that.tokenType != null)
-            return false;
+        OAuth2AccessToken otherToken = (OAuth2AccessToken) other;
 
-        return true;
+        return accessToken.equals(otherToken.accessToken) && tokenType.equals(otherToken.tokenType);
     }
 
     @Override
     public int hashCode() {
-        int result = tokenType != null ? tokenType.hashCode() : 0;
-        result = 31 * result + (accessToken != null ? accessToken.hashCode() : 0);
-        result = 31 * result + (refreshToken != null ? refreshToken.hashCode() : 0);
-        result = 31 * result + (expiresIn != null ? expiresIn.hashCode() : 0);
-        result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
+        int result = tokenType.hashCode();
+        result = 31 * result + accessToken.hashCode();
 
         return result;
     }
