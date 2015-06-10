@@ -174,7 +174,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
 
         when: "I ask for a valid access token"
-            tokenManager.getValidAccessToken(grant).toBlocking().first()
+            tokenManager.getValidAccessToken(grant)
 
         then: "The refresh grant is asked for a new token"
             1 * tokenManager.grantNewAccessToken({ it == accessToken })
