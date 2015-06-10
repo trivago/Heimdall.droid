@@ -18,14 +18,14 @@ public class OAuth2AccessToken implements Serializable {
      * Value is case insensitive.
      */
     @SerializedName("token_type")
-    public String tokenType = null;
+    public String tokenType;
 
     /**
      * REQUIRED
      * The access token issued by the authorization server.
      */
     @SerializedName("access_token")
-    public String accessToken = null;
+    public String accessToken;
 
     /**
      * OPTIONAL
@@ -34,7 +34,7 @@ public class OAuth2AccessToken implements Serializable {
      * in https://tools.ietf.org/html/rfc6749#section-6.
      */
     @SerializedName("refresh_token")
-    public String refreshToken = null;
+    public String refreshToken;
 
     /**
      * RECOMMENDED
@@ -45,13 +45,13 @@ public class OAuth2AccessToken implements Serializable {
      * expiration time via other means or document the default value.
      */
     @SerializedName("expires_in")
-    public Integer expiresIn = null;
+    public int expiresIn;
 
     /**
      * The expiration date used by Heimdall.
      */
     @SerializedName("heimdall_expiration_date")
-    public Calendar expirationDate = null;
+    public Calendar expirationDate;
 
     // Public Api
 
@@ -61,10 +61,10 @@ public class OAuth2AccessToken implements Serializable {
      * @return True if expired. Otherwise false.
      */
     public boolean isExpired() {
-        return Calendar.getInstance().after(expirationDate);
+        return expirationDate == null || Calendar.getInstance().after(expirationDate);
     }
 
-    // equals and hashCode
+    // Object
 
     @Override
     public boolean equals(Object other) {

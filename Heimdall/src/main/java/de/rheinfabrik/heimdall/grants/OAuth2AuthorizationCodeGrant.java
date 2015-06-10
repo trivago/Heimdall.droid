@@ -17,6 +17,12 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
      */
     public final static String RESPONSE_TYPE = "code";
 
+    /**
+     * REQUIRED
+     * The "grant_type" which MUST be "authorization_code".
+     */
+    public final static String GRANT_TYPE = "authorization_code";
+
     // Properties
 
     /**
