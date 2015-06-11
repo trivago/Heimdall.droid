@@ -86,7 +86,7 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
 
     // Members
 
-    public final BehaviorSubject<Uri> mAuthorizationUriSubject = BehaviorSubject.create();;
+    private final BehaviorSubject<Uri> mAuthorizationUriSubject = BehaviorSubject.create();
 
     // OAuth2AccessToken
 

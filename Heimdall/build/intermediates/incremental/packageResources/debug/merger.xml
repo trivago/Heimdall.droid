@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/src/main/res"/><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/generated/res/rs/debug"/><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/generated/res/generated/debug"/></dataSet><dataSet config="debug"><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/src/debug/res"/></dataSet><mergedItems/></merger>
+<merger version="3">
+    <dataSet config="main">
+        <source path="/Users/giuliopetek/Github/android-oauth/Heimdall/src/main/res"/>
+        <source
+            path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/generated/res/rs/debug"/>
+        <source
+            path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/generated/res/generated/debug"/>
+    </dataSet>
+    <dataSet config="debug">
+        <source path="/Users/giuliopetek/Github/android-oauth/Heimdall/src/debug/res"/>
+    </dataSet>
+    <mergedItems/>
+</merger>

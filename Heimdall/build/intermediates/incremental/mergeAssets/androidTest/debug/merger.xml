@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="0.1"><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/intermediates/exploded-aar/com.android.support.test/testing-support-lib/0.1/assets"/></dataSet><dataSet config="1.2.0"><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/intermediates/exploded-aar/com.andrewreitz/spock-android/1.2.0/assets"/></dataSet><dataSet config="debug"><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/Users/giuliopetek/Github/android-oauth/Heimdall/src/androidTest/assets"/></dataSet></merger>
+<merger version="3">
+    <dataSet config="0.1">
+        <source
+            path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/intermediates/exploded-aar/com.android.support.test/testing-support-lib/0.1/assets"/>
+    </dataSet>
+    <dataSet config="1.2.0">
+        <source
+            path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/intermediates/exploded-aar/com.andrewreitz/spock-android/1.2.0/assets"/>
+    </dataSet>
+    <dataSet config="debug">
+        <source
+            path="/Users/giuliopetek/Github/android-oauth/Heimdall/build/intermediates/bundles/debug/assets"/>
+    </dataSet>
+    <dataSet config="main">
+        <source path="/Users/giuliopetek/Github/android-oauth/Heimdall/src/androidTest/assets"/>
+    </dataSet>
+</merger>
