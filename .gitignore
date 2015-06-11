@@ -1,11 +1,8 @@
 # Intellij project files
 *.iws
-.idea/tasks.xml
-*.idea/workspace.xml
-.idea/workspace.xml
 *.iml
-.gradle/*
-.idea/*
+*.gradle/*
+*.idea/*
 
 # generated files
 bin/
@@ -19,6 +16,6 @@ local.properties
 #Artifacts
 .Thumbs.db
 .DS_Store
-oauth2/local.properties
 
+# Additional
 Heimdall/.idea/workspace.xml
