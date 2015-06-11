@@ -51,11 +51,71 @@ public class MyOAuth2Grant extends OAuth2RefreshAccessTokenGrant<OAuth2AccessTok
 }
 ```
 
-A more complex example using Retrofit will be added soon.
+Mostly you will use the `OAuth2AuthorizationCodeGrant` to authorize the user via a third party service such as Trakt.tv.
+
+The implemention of a grant authorizing with Trakt.tv might be look as following:
+
+```java
+public final class TraktTVAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant<OAuth2AccessToken> {
+
+    public String clientSecret;
+
+    @Override
+    public Uri buildAuthorizationUri() {
+        return Uri.parse("https://trakt.tv/oauth/authorize")
+                .buildUpon()
+                .appendQueryParameter("client_id", clientId)
+                .appendQueryParameter("redirect_uri", redirectUri)
+                .appendQueryParameter("response_type", RESPONSE_TYPE).build();
+    }
+
+    @Override
+    public Observable<OAuth2AccessToken> exchangeTokenForCode(String code) {
+        // Create the network request based on the grant type, clientSecret and the retrieved code.
+        // You can use Retrofit to make things easier.
+    }
+}
+```
+
+Using that grant with an Android WebView might look like this:
+
+```java
+// Create the grant
+TraktTVAuthorizationCodeGrant grant = new TraktTVAuthorizationCodeGrant();
+grant.clientSecret = "secret"
+grant.clientId = "id"
+grant.redirectUri = "uri"
+
+// Set up web view loading
+webView.setWebViewClient(new WebViewClient() {
+ 	
+ 	@Override
+    public void onPageFinished(WebView view, String url) {
+    	super.onPageFinished(view, url);
+
+		// Tell the grant we loaded an url
+        grant.onUrlLoadedCommand.onNext(Uri.parse(url));
+    }
+});
+
+// Load the authorization url once build
+grant.authorizationUri()
+    .map(Uri::parse)
+	.observeOn(AndroidSchedulers.mainThread())
+	.subscribe(myWebView::load)
+
+// Start the authorization process
+grant.grantNewAccessToken()
+	.subscrive(token -> Log.d("Heimdall", "New token: " + token))
+
+```
+
+## Example 2
+
 
 ## Installation
 
-//TBD
+// TBD
 
 ## About
 
