@@ -17,5 +17,5 @@ public interface OAuth2Grant<TAccessToken extends OAuth2AccessToken> {
      *
      * @return - An Observable emitting the granted access token.
      */
-    public Observable<TAccessToken> grantNewAccessToken();
+    Observable<TAccessToken> grantNewAccessToken();
 }

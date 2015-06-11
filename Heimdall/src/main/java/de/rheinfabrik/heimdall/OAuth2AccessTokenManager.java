@@ -6,6 +6,9 @@ import de.rheinfabrik.heimdall.grants.OAuth2Grant;
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant;
 import rx.Observable;
 
+import static rx.Observable.error;
+import static rx.Observable.just;
+
 /**
  * The all-seeing and all-hearing guardian sentry of your application who
  * stands on the rainbow bridge to handle all your access tokens needs!
@@ -29,7 +32,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
         super();
 
         if (storage == null) {
-            throw new RuntimeException("Storage MUST NOT be null.");
+            throw new IllegalArgumentException("Storage MUST NOT be null.");
         }
 
         mStorage = storage;
@@ -39,6 +42,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
 
     /**
      * Returns the underlying storage.
+     *
      * @return - An OAuth2AccessTokenStorage.
      */
     public OAuth2AccessTokenStorage<TAccessToken> getStorage() {
@@ -53,17 +57,15 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
      */
     public Observable<TAccessToken> grantNewAccessToken(OAuth2Grant<TAccessToken> grant) {
         if (grant == null) {
-            throw new RuntimeException("Grant MUST NOT be null.");
+            throw new IllegalArgumentException("Grant MUST NOT be null.");
         }
 
         return grant
                 .grantNewAccessToken()
                 .doOnNext(accessToken -> {
-                    if (accessToken.expiresIn != null) {
-                        Calendar expirationDate = Calendar.getInstance();
-                        expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
-                        accessToken.expirationDate = expirationDate;
-                    }
+                    Calendar expirationDate = Calendar.getInstance();
+                    expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
+                    accessToken.expirationDate = expirationDate;
 
                     mStorage.storeAccessToken(accessToken);
                 });
@@ -79,22 +81,21 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
      */
     public Observable<TAccessToken> getValidAccessToken(final OAuth2RefreshAccessTokenGrant<TAccessToken> refreshAccessTokenGrant) {
         if (refreshAccessTokenGrant == null) {
-            throw new RuntimeException("RefreshAccessTokenGrant MUST NOT be null.");
+            throw new IllegalArgumentException("RefreshAccessTokenGrant MUST NOT be null.");
         }
 
-        return mStorage.getStoredAccessToken().concatMap(accessToken -> {
-            if (accessToken == null) {
-                return Observable.error(new RuntimeException("No access token found."));
-            }
+        return mStorage.getStoredAccessToken()
+                .concatMap(accessToken -> {
+                    if (accessToken == null) {
+                        return error(new IllegalStateException("No access token found."));
+                    } else if (accessToken.isExpired()) {
+                        refreshAccessTokenGrant.refreshToken = accessToken.refreshToken;
 
-            if (accessToken.isExpired()) {
-                refreshAccessTokenGrant.refreshToken = accessToken.refreshToken;
-
-                return grantNewAccessToken(refreshAccessTokenGrant);
-            } else {
-                return Observable.just(accessToken);
-            }
-        });
+                        return grantNewAccessToken(refreshAccessTokenGrant);
+                    } else {
+                        return just(accessToken);
+                    }
+                });
     }
 
 }

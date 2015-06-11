@@ -16,14 +16,14 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      *
      * @return - An Observable emitting the stored access token.
      */
-    public Observable<TAccessToken> getStoredAccessToken();
+    Observable<TAccessToken> getStoredAccessToken();
 
     /**
      * Stores the given access token.
      *
      * @param token The access token which will be stored.
      */
-    public void storeAccessToken(TAccessToken token);
+    void storeAccessToken(TAccessToken token);
 
     /**
      * Checks whether there is or is not an access token
@@ -31,5 +31,10 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      * @return - An Observable emitting true or false based on whether there is or is not an
      * access token.
      */
-    public Observable<Boolean> hasAccessToken();
+    Observable<Boolean> hasAccessToken();
+
+    /**
+     * Removes the stored access token.
+     */
+    void removeAccessToken();
 }

@@ -77,4 +77,12 @@ public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAut
     public Observable<Boolean> hasAccessToken() {
         return Observable.just(mSharedPreferences.contains(ACCESS_TOKEN_PREFERENCES_KEY));
     }
+
+    @Override
+    public void removeAccessToken() {
+        mSharedPreferences
+                .edit()
+                .remove(ACCESS_TOKEN_PREFERENCES_KEY)
+                .apply();
+    }
 }

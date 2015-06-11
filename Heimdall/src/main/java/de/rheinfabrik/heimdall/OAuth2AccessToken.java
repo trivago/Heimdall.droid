@@ -18,14 +18,14 @@ public class OAuth2AccessToken implements Serializable {
      * Value is case insensitive.
      */
     @SerializedName("token_type")
-    public String tokenType = null;
+    public String tokenType;
 
     /**
      * REQUIRED
      * The access token issued by the authorization server.
      */
     @SerializedName("access_token")
-    public String accessToken = null;
+    public String accessToken;
 
     /**
      * OPTIONAL
@@ -34,7 +34,7 @@ public class OAuth2AccessToken implements Serializable {
      * in https://tools.ietf.org/html/rfc6749#section-6.
      */
     @SerializedName("refresh_token")
-    public String refreshToken = null;
+    public String refreshToken;
 
     /**
      * RECOMMENDED
@@ -45,13 +45,13 @@ public class OAuth2AccessToken implements Serializable {
      * expiration time via other means or document the default value.
      */
     @SerializedName("expires_in")
-    public Integer expiresIn = null;
+    public int expiresIn;
 
     /**
      * The expiration date used by Heimdall.
      */
     @SerializedName("heimdall_expiration_date")
-    public Calendar expirationDate = null;
+    public Calendar expirationDate;
 
     // Public Api
 
@@ -61,39 +61,30 @@ public class OAuth2AccessToken implements Serializable {
      * @return True if expired. Otherwise false.
      */
     public boolean isExpired() {
-        return Calendar.getInstance().after(expirationDate);
+        return expirationDate == null || Calendar.getInstance().after(expirationDate);
     }
 
-    // equals and hashCode
+    // Object
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OAuth2AccessToken)) return false;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
 
-        OAuth2AccessToken that = (OAuth2AccessToken) o;
+        if (!(other instanceof OAuth2AccessToken)) {
+            return false;
+        }
 
-        if (accessToken != null ? !accessToken.equals(that.accessToken) : that.accessToken != null)
-            return false;
-        if (expirationDate != null ? !expirationDate.equals(that.expirationDate) : that.expirationDate != null)
-            return false;
-        if (expiresIn != null ? !expiresIn.equals(that.expiresIn) : that.expiresIn != null)
-            return false;
-        if (refreshToken != null ? !refreshToken.equals(that.refreshToken) : that.refreshToken != null)
-            return false;
-        if (tokenType != null ? !tokenType.equals(that.tokenType) : that.tokenType != null)
-            return false;
+        OAuth2AccessToken otherToken = (OAuth2AccessToken) other;
 
-        return true;
+        return accessToken.equals(otherToken.accessToken) && tokenType.equals(otherToken.tokenType);
     }
 
     @Override
     public int hashCode() {
-        int result = tokenType != null ? tokenType.hashCode() : 0;
-        result = 31 * result + (accessToken != null ? accessToken.hashCode() : 0);
-        result = 31 * result + (refreshToken != null ? refreshToken.hashCode() : 0);
-        result = 31 * result + (expiresIn != null ? expiresIn.hashCode() : 0);
-        result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
+        int result = tokenType.hashCode();
+        result = 31 * result + accessToken.hashCode();
 
         return result;
     }
