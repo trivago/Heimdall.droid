@@ -56,6 +56,17 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
      * @return - An observable emitting the granted access token.
      */
     public Observable<TAccessToken> grantNewAccessToken(OAuth2Grant<TAccessToken> grant) {
+        return grantNewAccessToken(grant, Calendar.getInstance());
+    }
+
+    /**
+     * Grants a new access token using the given OAuth2 grant.
+     *
+     * @param grant    A class implementing the OAuth2Grant interface.
+     * @param calendar A calendar instance used to calculate the expiration date of the token.
+     * @return - An observable emitting the granted access token.
+     */
+    public Observable<TAccessToken> grantNewAccessToken(OAuth2Grant<TAccessToken> grant, Calendar calendar) {
         if (grant == null) {
             throw new IllegalArgumentException("Grant MUST NOT be null.");
         }
@@ -63,7 +74,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
         return grant
                 .grantNewAccessToken()
                 .doOnNext(accessToken -> {
-                    Calendar expirationDate = Calendar.getInstance();
+                    Calendar expirationDate = (Calendar) calendar.clone();
                     expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
                     accessToken.expirationDate = expirationDate;
 
@@ -73,7 +84,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
 
     /**
      * Returns an Observable emitting an unexpired access token.
-     * NOTE: In order to work the library needs an access token which has a refresh_token and an
+     * NOTE: In order to work, Heimdall needs an access token which has a refresh_token and an
      * expires_in field.
      *
      * @param refreshAccessTokenGrant The refresh grant that will be used if the access token is expired.

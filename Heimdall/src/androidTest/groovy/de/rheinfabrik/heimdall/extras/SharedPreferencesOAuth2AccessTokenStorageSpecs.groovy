@@ -12,7 +12,7 @@ class SharedPreferencesOAuth2AccessTokenStorageRemoveAccessTokenSpecs extends An
     // Scenarios
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def "it should remove the access token from the preferencses"() {
+    def "it should remove the access token from the preferences"() {
 
         given: "A fake editor"
             SharedPreferences.Editor editor = Mock(SharedPreferences.Editor)

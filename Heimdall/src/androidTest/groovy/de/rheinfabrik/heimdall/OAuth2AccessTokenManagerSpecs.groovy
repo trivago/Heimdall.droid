@@ -46,11 +46,11 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
             thrown(IllegalArgumentException)
     }
 
-    def "it should generate and set a new expiration date"() {
+    def "it should generate and set the correct expiration date"() {
 
         given: "An OAuth2AccessToken"
-            OAuth2AccessToken accessToken = new OAuth2AccessToken()
-            accessToken.expiresIn = 3000
+            OAuth2AccessToken accessToken = new OAuth2AccessToken(expirationDate: null)
+            accessToken.expiresIn = 3
 
         and: "A grant emitting that token"
             OAuth2Grant grant = Mock(OAuth2Grant)
@@ -59,12 +59,14 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
         and: "An OAuth2AccessTokenManager"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(Mock(OAuth2AccessTokenStorage))
 
-        when: "I ask for a new access token"
-            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant).toBlocking().first()
+        and: "A calendar instance"
+            Calendar calendar = Calendar.getInstance()
 
-        then: "The access token should have an approximately correct expiration date (max 5 secs from now)"
-            long delta = newToken.expirationDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis()
-            delta < 5 * 1000 * 1000
+        when: "I ask for a new access token"
+            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant, calendar).toBlocking().first()
+
+        then: "The access token should have the correct expiration date"
+            newToken.expirationDate.timeInMillis == calendar.getTimeInMillis() + 3000
     }
 
     def "it should store the access token"() {
@@ -109,7 +111,6 @@ class OAuth2AccessTokenManagerGetStorageSpecs extends AndroidSpecification {
         then: "I have the storage I once passed via the constructor"
             receivedStorage == storage
     }
-
 }
 
 @Title("Tests for the getValidAccessToken() function of the OAuth2AccessTokenManager class")
@@ -135,7 +136,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
     def "it should emit the non-expired stored access token"() {
 
         given: "A non-expired OAuth2AccessToken"
-            OAuth2AccessToken accessToken = new OAuth2AccessToken()
+            OAuth2AccessToken accessToken = Mock(OAuth2AccessToken)
             accessToken.isExpired() >> false
 
         and: "A mock storage emitting that token"
@@ -160,7 +161,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
     def "it should ask to refresh the token if the token is expired"() {
 
         given: "An expired OAuth2AccessToken"
-            OAuth2AccessToken accessToken = new OAuth2AccessToken()
+            OAuth2AccessToken accessToken = Mock(OAuth2AccessToken)
             accessToken.isExpired() >> true
 
         and: "A mock storage emitting that token"
@@ -183,7 +184,8 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
     def "it should set the refresh token to the grant if the token is expired"() {
 
         given: "An expired OAuth2AccessToken"
-            OAuth2AccessToken accessToken = new OAuth2AccessToken(refreshToken: "rt")
+            OAuth2AccessToken accessToken = Mock(OAuth2AccessToken)
+            accessToken.refreshToken = "rt"
             accessToken.isExpired() >> true
 
         and: "A mock storage emitting that token"

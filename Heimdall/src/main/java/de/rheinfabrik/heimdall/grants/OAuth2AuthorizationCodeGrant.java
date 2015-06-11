@@ -68,7 +68,7 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
     }
 
     /**
-     * Command you should send a value to whenever an url in your e.g. web view has been loaded.
+     * Command you should send a value to whenever an url in e.g. your web view has been loaded.
      */
     public final PublishSubject<Uri> onUriLoadedCommand = PublishSubject.create();
 
