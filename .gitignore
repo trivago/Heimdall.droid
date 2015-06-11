@@ -1,11 +1,12 @@
-#Android Studio
-*/build
-*/.idea
-*/.gradle
+# Intellij project files
+*.iws
+.idea/tasks.xml
+*.idea/workspace.xml
+.idea/workspace.xml
+*.iml
+.gradle/*
 
 #Artifacts
 .Thumbs.db
 .DS_Store
 oauth2/local.properties
-
-oauth2/oauth2.iml
