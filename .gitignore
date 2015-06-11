@@ -5,7 +5,17 @@
 .idea/workspace.xml
 *.iml
 .gradle/*
+.idea/*
 
+# generated files
+bin/
+gen/
+
+# build folder
+*build/*
+
+# Local configuration file (sdk path, etc)
+local.properties
 #Artifacts
 .Thumbs.db
 .DS_Store
