@@ -10,3 +10,5 @@
 .Thumbs.db
 .DS_Store
 oauth2/local.properties
+
+Heimdall/.idea/workspace.xml
