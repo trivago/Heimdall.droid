@@ -110,9 +110,6 @@ grant.grantNewAccessToken()
 
 ```
 
-## Example 2
-
-
 ## Installation
 
 // TBD
