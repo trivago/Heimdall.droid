@@ -8,7 +8,7 @@ This library makes use of [RxAndroid](https://github.com/ReactiveX/RxAndroid). T
 
 Heimdall's main class is the `OAuth2AccessTokenManager`. It is responsible for retrieving a new access token and keeping it valid by refreshing it.
 
-In order to initialize an `OAuth2AccessTokenManager` instance, you need to pass an object implementing the `OAuth2AccessTokenStorage` interface. You can use the predefined `SharedPreferencesOAuth2AccessTokenStorage` if it suits your needs. Make sure that your `OAuth2AccessTokenManager` is as secure as possible!
+In order to initialize an `OAuth2AccessTokenManager` instance, you need to pass an object implementing the `OAuth2AccessTokenStorage` interface. You can use the predefined `SharedPreferencesOAuth2AccessTokenStorage` if it suits your needs. Make sure that your `OAuth2AccessTokenStorage` is as secure as possible!
 
 ```java 
 
@@ -17,7 +17,7 @@ OAuth2AccessTokenManager<> manager = new OAuth2AccessTokenManager<OAuth2AccessTo
 
 ```
 
-On your manager instance you can now call `grantNewAccessToken(grant)` to receive a new access token. The grant instance you pass must implement the `OAuth2Grant` interface. 
+On your manager instance you can now call `grantNewAccessToken(grant)` to receive a new access token. The grant instance you pass must implement the `OAuth2Grant` interface and your actual server call. 
 
 Here is an example of an `OAuth2ResourceOwnerPasswordCredentialsGrant`.
 
@@ -53,7 +53,7 @@ public class MyOAuth2Grant extends OAuth2RefreshAccessTokenGrant<OAuth2AccessTok
 
 Mostly you will use the `OAuth2AuthorizationCodeGrant` to authorize the user via a third party service such as Trakt.tv.
 
-The implemention of a grant authorizing with Trakt.tv might be look as following:
+The implemention of a grant authorizing with Trakt.tv might look as following:
 
 ```java
 public final class TraktTVAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant<OAuth2AccessToken> {
