@@ -77,7 +77,7 @@ public final class TraktTVAuthorizationCodeGrant extends OAuth2AuthorizationCode
 }
 ```
 
-Using that grant with an Android WebView might look like this:
+Using that grant with an Android WebView might look like this (please note that we use [Retrolambda](https://github.com/evant/gradle-retrolambda) here):
 
 ```java
 // Create the grant
