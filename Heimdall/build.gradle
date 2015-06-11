@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'groovyx.grooid.groovy-android'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'me.tatarka:gradle-retrolambda:2.5.0'
+        classpath 'org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6'
+    }
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'LICENSE'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/services/org.codehaus.groovy.transform.ASTTransformation'
+    }
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+
+    // Rx
+    compile 'io.reactivex:rxandroid-framework:0.24.0'
+
+    // GSON
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    // Spock
+    androidTestCompile 'org.codehaus.groovy:groovy:2.4.2:grooid'
+    androidTestCompile "com.andrewreitz:spock-android:1.2.0"
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude group: 'org.codehaus.groovy'
+        exclude group: 'junit'
+    }
+    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+}
