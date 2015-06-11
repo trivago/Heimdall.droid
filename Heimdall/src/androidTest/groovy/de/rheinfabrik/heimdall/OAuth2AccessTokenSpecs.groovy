@@ -20,13 +20,13 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
             String json = new Gson().toJson(accessToken)
 
         then: "The JSON should be as expected"
-            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":0,\"second\":1},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
+            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1969,\"month\":11,\"dayOfMonth\":31,\"hourOfDay\":19,\"minute\":0,\"second\":1},\"refresh_token\":\"rt\",\"token_type\":\"bearer\",\"expires_in\":3600}"
     }
 
     def "It should create the correct OAuth2AccessToken for a given JSON"() {
 
         given: "Some JSON representing an OAuth2AccessToken"
-            String json = "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":0,\"second\":1},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
+            String json = "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1969,\"month\":11,\"dayOfMonth\":31,\"hourOfDay\":19,\"minute\":0,\"second\":1},\"refresh_token\":\"rt\",\"token_type\":\"bearer\",\"expires_in\":3600}"
 
         when: "I deserialize it with Gson"
             OAuth2AccessToken accessToken = new Gson().fromJson(json, OAuth2AccessToken.class)

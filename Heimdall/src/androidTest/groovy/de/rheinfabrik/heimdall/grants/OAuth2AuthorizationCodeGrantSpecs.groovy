@@ -19,5 +19,4 @@ class OAuth2AuthorizationCodeGrantSpecs extends AndroidSpecification {
         expect: "the response type to be authorization_code"
             OAuth2AuthorizationCodeGrant.GRANT_TYPE == "authorization_code"
     }
-
 }

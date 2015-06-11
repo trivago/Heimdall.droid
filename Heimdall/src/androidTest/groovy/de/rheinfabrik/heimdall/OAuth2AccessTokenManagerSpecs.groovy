@@ -156,6 +156,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
             validToken == accessToken
     }
 
+    @SuppressWarnings("GroovyAssignabilityCheck")
     def "it should ask to refresh the token if the token is expired"() {
 
         given: "An expired OAuth2AccessToken"
@@ -166,17 +167,40 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
             OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
             storage.getStoredAccessToken() >> just(accessToken)
 
+        and: "An OAuth2AccessTokenManager with that storage"
+            OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
+
         and: "A mock grant"
             OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
-            grant.grantNewAccessToken() >> just(accessToken)
+
+        when: "I ask for a valid access token"
+            tokenManager.getValidAccessToken(grant).subscribe()
+
+        then: "The refresh grant is asked for a new token"
+            1 * grant.grantNewAccessToken() >> just(accessToken)
+    }
+
+    def "it should set the refresh token to the grant if the token is expired"() {
+
+        given: "An expired OAuth2AccessToken"
+            OAuth2AccessToken accessToken = new OAuth2AccessToken(refreshToken: "rt")
+            accessToken.isExpired() >> true
+
+        and: "A mock storage emitting that token"
+            OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
+            storage.getStoredAccessToken() >> just(accessToken)
 
         and: "An OAuth2AccessTokenManager with that storage"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
 
+        and: "A mock grant"
+            OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
+            grant.grantNewAccessToken() >> just(accessToken)
+
         when: "I ask for a valid access token"
-            tokenManager.getValidAccessToken(grant)
+            tokenManager.getValidAccessToken(grant).subscribe()
 
         then: "The refresh grant is asked for a new token"
-            1 * tokenManager.grantNewAccessToken({ it == accessToken })
+            grant.refreshToken == accessToken.refreshToken
     }
 }
