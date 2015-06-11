@@ -9,15 +9,12 @@ bin/
 gen/
 
 # build folder
-*build/*
+*.build/*
 
 # Local configuration file (sdk path, etc)
 local.properties
+
 #Artifacts
 .Thumbs.db
 .DS_Store
 
-# Additional
-Heimdall/.idea/workspace.xml
-Heimdall/.gradle/2.2.1/taskArtifacts/cache.properties.lock
-Heimdall/.gradle/2.2.1/taskArtifacts/fileHashes.bin
