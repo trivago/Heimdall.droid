@@ -13,20 +13,20 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
 
         given: "An OAuth2AccessToken"
             OAuth2AccessToken accessToken = new OAuth2AccessToken(refreshToken: "rt", expiresIn: 3600, accessToken: "at", tokenType: "bearer")
-            accessToken.expirationDate = Calendar.getInstance()
-            accessToken.expirationDate.setTimeInMillis(1000)
+            accessToken.expirationDate = Calendar.getInstance(Locale.UK)
+            accessToken.expirationDate.setTimeInMillis(0)
 
         when: "I serialize it with Gson"
             String json = new Gson().toJson(accessToken)
 
         then: "The JSON should be as expected"
-            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1969,\"month\":11,\"dayOfMonth\":31,\"hourOfDay\":19,\"minute\":0,\"second\":1},\"refresh_token\":\"rt\",\"token_type\":\"bearer\",\"expires_in\":3600}"
+            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":0,\"second\":0},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
     }
 
     def "It should create the correct OAuth2AccessToken for a given JSON"() {
 
         given: "Some JSON representing an OAuth2AccessToken"
-            String json = "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1969,\"month\":11,\"dayOfMonth\":31,\"hourOfDay\":19,\"minute\":0,\"second\":1},\"refresh_token\":\"rt\",\"token_type\":\"bearer\",\"expires_in\":3600}"
+            String json = "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":0,\"second\":0},\"refresh_token\":\"rt\",\"token_type\":\"bearer\",\"expires_in\":3600}"
 
         when: "I deserialize it with Gson"
             OAuth2AccessToken accessToken = new Gson().fromJson(json, OAuth2AccessToken.class)
@@ -38,8 +38,8 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
                 accessToken.accessToken == "at"
                 accessToken.tokenType == "bearer"
 
-                Calendar calendar = Calendar.getInstance()
-                calendar.setTimeInMillis(1000)
+                Calendar calendar = Calendar.getInstance(Locale.UK)
+                calendar.setTimeInMillis(0)
                 accessToken.expirationDate == calendar
             })
     }
