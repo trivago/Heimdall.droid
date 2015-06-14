@@ -1,5 +1,7 @@
 # Heimdall
 
+![Heimdall logo](logo.jpg)
+
 Heimdall is an [OAuth 2.0](https://tools.ietf.org/html/rfc6749) client specifically designed for easy usage and high flexibility. It supports all grants as described in [Section 4](https://tools.ietf.org/html/rfc6749#section-4) as well as refreshing an access token as described in [Section 6](https://tools.ietf.org/html/rfc6749#section-6).
 
 This library makes use of [RxAndroid](https://github.com/ReactiveX/RxAndroid). Therefore you should be familar with [Observables](https://github.com/ReactiveX/RxJava/wiki/Observable).
