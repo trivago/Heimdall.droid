@@ -1,12 +1,32 @@
-# Heimdall
+# <img src="https://cloud.githubusercontent.com/assets/460060/8159821/b8bfeb32-136a-11e5-83ed-83b7fe01df3a.jpg" width="30" height="30"> Heimdall
 
-![Heimdall logo](logo.jpg)
-
-Heimdall is an [OAuth 2.0](https://tools.ietf.org/html/rfc6749) client specifically designed for easy usage and high flexibility. It supports all grants as described in [Section 4](https://tools.ietf.org/html/rfc6749#section-4) as well as refreshing an access token as described in [Section 6](https://tools.ietf.org/html/rfc6749#section-6).
+Heimdall is an [OAuth 2.0](https://tools.ietf.org/html/rfc6749) client specifically designed for easy usage and high flexibility. It supports all grants as described in [Section 4](https://tools.ietf.org/html/rfc6749#section-4) as well as refreshing an access token as described in [Section 6](https://tools.ietf.org/html/rfc6749#section-6) of the [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749) specification.
 
 This library makes use of [RxAndroid](https://github.com/ReactiveX/RxAndroid). Therefore you should be familar with [Observables](https://github.com/ReactiveX/RxJava/wiki/Observable).
 
-## Example
+## Installation
+
+Heimdall is ready to be used via [jitpack.io](https://jitpack.io/#rheinfabrik/Heimdall.droid).
+Simply add the following code to your root `build.gradle`:
+
+```groovy
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+Now add the gradle dependency in your application's `build.gradle`:
+
+```groovy
+dependencies {
+    compile 'com.github.rheinfabrik:Heimdall.droid:{latest_version}'
+}
+```
+
+## Examples
 
 Heimdall's main class is the `OAuth2AccessTokenManager`. It is responsible for retrieving a new access token and keeping it valid by refreshing it.
 
@@ -111,10 +131,6 @@ grant.grantNewAccessToken()
 	.subscrive(token -> Log.d("Heimdall", "New token: " + token))
 
 ```
-
-## Installation
-
-// TBD
 
 ## About
 
