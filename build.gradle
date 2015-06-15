@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'groovyx.grooid.groovy-android'
+apply plugin: 'com.github.dcendents.android-maven'
 
 buildscript {
     repositories {
@@ -11,13 +12,12 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'me.tatarka:gradle-retrolambda:2.5.0'
-	classpath 'com.github.dcendents:android-maven-plugin:1.2'
+        classpath 'com.github.dcendents:android-maven-plugin:1.2'
         classpath 'org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6'
     }
 }
 
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.rheinfabrik'
+group = 'com.github.rheinfabrik'
 
 android {
     compileSdkVersion 22
@@ -37,8 +37,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 101
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
