@@ -57,3 +57,5 @@ proguard/
 
 #Log Files
 *.log
+
+sample/src/main/java/de/rheinfabrik/heimdalldroid/network/TraktTvAPIConfiguration.java

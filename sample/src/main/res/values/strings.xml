@@ -1,3 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <string name="app_name">Heidmall.droid</string>
+
+    <!-- The Application name -->
+    <string name="app_name">Heimdall.droid</string>
+
+    <!-- Dialogs -->
+    <string name="error_title">Oooops</string>
+    <string name="error_message">There was an error. Please try again later.</string>
+    <string name="no_liked_lists_message">There are no lists on your account. Please create some
+        over at http://trakt.tv!
+    </string>
+    <string name="ok">OK</string>
+
+    <!-- Item views -->
+    <string name="likes_postfix">" Likes"</string>
+
 </resources>
