@@ -4,6 +4,8 @@ Heimdall is an [OAuth 2.0](https://tools.ietf.org/html/rfc6749) client specifica
 
 This library makes use of [RxAndroid](https://github.com/ReactiveX/RxAndroid). Therefore you should be familar with [Observables](https://github.com/ReactiveX/RxJava/wiki/Observable).
 
+If you are an iOS Developer then please take a look at the [Swift version of Heimdall](https://github.com/rheinfabrik/Heimdall.swift).
+
 ## Installation
 
 Heimdall is ready to be used via [jitpack.io](https://jitpack.io/#rheinfabrik/Heimdall.droid).
@@ -131,6 +133,13 @@ grant.grantNewAccessToken()
 	.subscrive(token -> Log.d("Heimdall", "New token: " + token))
 
 ```
+
+## Sample Application
+
+Please also check out our sample application which performs an authorization against [trakt.tv](https://trakt.tv/) and displays a simple list of the user's watchlists.
+
+**Note:** In order to build the sample by yourself you have to [create a new application on trakt.tv](https://trakt.tv/oauth/applications/new) and add the credentials wherever `TraktTvAPIConfiguration.java` is used.
+
 
 ## About
 
