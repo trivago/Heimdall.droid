@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="hint_of_red">#F9F9F9</color>
+    <color name="persian_red">#FFD32F2F</color>
+    <color name="red_orange">#FFF44336</color>
+    <color name="bunker">#FF282B2E</color>
+
+</resources>
