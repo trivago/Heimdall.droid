@@ -31,6 +31,18 @@
             android:textStyle="bold"
             tools:text="Title"/>
 
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView"
+            android:layout_toLeftOf="@+id/likeCountTextView"
+            android:textColor="@color/bunker"
+            android:textSize="14sp"
+            tools:text="Description"/>
+
         <!-- Number of likes -->
         <TextView
             android:id="@+id/likeCountTextView"
@@ -40,17 +52,7 @@
             android:layout_centerVertical="true"
             android:textColor="@color/red_orange"
             android:textSize="14sp"
-            tools:text="100"/>
-
-        <!-- Description -->
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titleTextView"
-            android:textColor="@color/bunker"
-            android:textSize="14sp"
-            tools:text="Description"/>
+            tools:text="100 Likes"/>
 
     </RelativeLayout>
 
