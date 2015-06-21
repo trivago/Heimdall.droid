@@ -4,10 +4,17 @@ import com.andrewreitz.spock.android.AndroidSpecification
 import com.google.gson.Gson
 import spock.lang.Title
 
-import static java.util.TimeZone.getTimeZone
-
 @Title("Specs for serialization in the OAuth2AccessToken class.")
 class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
+
+    // Setup
+
+    def setup() {
+
+        // Set default locale and time zone
+        Locale.setDefault(Locale.GERMANY)
+        TimeZone.setDefault(TimeZone.getTimeZone("CEST"))
+    }
 
     // Scenarios
 
@@ -15,20 +22,20 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
 
         given: "An OAuth2AccessToken"
             OAuth2AccessToken accessToken = new OAuth2AccessToken(refreshToken: "rt", expiresIn: 3600, accessToken: "at", tokenType: "bearer")
-            accessToken.expirationDate = Calendar.getInstance(getTimeZone("UTC"))
+            accessToken.expirationDate = Calendar.getInstance()
             accessToken.expirationDate.setTimeInMillis(0)
 
         when: "I serialize it with Gson"
             String json = new Gson().toJson(accessToken)
 
         then: "The JSON should be as expected"
-            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":0,\"second\":0},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
+            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
     }
 
     def "It should create the correct OAuth2AccessToken for a given JSON"() {
 
         given: "Some JSON representing an OAuth2AccessToken"
-            String json = "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":0,\"second\":0},\"refresh_token\":\"rt\",\"token_type\":\"bearer\",\"expires_in\":3600}"
+            String json = "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
 
         when: "I deserialize it with Gson"
             OAuth2AccessToken accessToken = new Gson().fromJson(json, OAuth2AccessToken.class)
@@ -40,9 +47,9 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
                 accessToken.accessToken == "at"
                 accessToken.tokenType == "bearer"
 
-                Calendar calendar = Calendar.getInstance(getTimeZone("UTC"))
+                Calendar calendar = Calendar.getInstance()
                 calendar.setTimeInMillis(0)
-                accessToken.expirationDate == calendar
+                accessToken.expirationDate.timeInMillis == calendar.timeInMillis
             })
     }
 }
