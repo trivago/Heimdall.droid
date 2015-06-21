@@ -4,8 +4,8 @@ import java.util.List;
 
 import de.rheinfabrik.heimdall.OAuth2AccessToken;
 import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
-import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
+import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Header;

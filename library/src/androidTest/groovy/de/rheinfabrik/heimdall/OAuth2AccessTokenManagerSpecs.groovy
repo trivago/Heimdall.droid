@@ -69,6 +69,26 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
             newToken.expirationDate.timeInMillis == calendar.getTimeInMillis() + 3000
     }
 
+    def "it should NOT generate and set the correct expiration date if expiresIn is null"() {
+
+        given: "An OAuth2AccessToken"
+            OAuth2AccessToken accessToken = new OAuth2AccessToken(expirationDate: null)
+            accessToken.expiresIn = null
+
+        and: "A grant emitting that token"
+            OAuth2Grant grant = Mock(OAuth2Grant)
+            grant.grantNewAccessToken() >> just(accessToken)
+
+        and: "An OAuth2AccessTokenManager"
+            OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(Mock(OAuth2AccessTokenStorage))
+
+        when: "I ask for a new access token"
+            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant).toBlocking().first()
+
+        then: "The access token should have the NO expiration date"
+            newToken.expirationDate == null
+    }
+
     def "it should store the access token"() {
 
         given: "An OAuth2AccessToken"

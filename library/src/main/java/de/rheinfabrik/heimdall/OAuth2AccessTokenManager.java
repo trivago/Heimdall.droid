@@ -74,9 +74,11 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
         return grant
                 .grantNewAccessToken()
                 .doOnNext(accessToken -> {
-                    Calendar expirationDate = (Calendar) calendar.clone();
-                    expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
-                    accessToken.expirationDate = expirationDate;
+                    if (accessToken.expiresIn != null) {
+                        Calendar expirationDate = (Calendar) calendar.clone();
+                        expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
+                        accessToken.expirationDate = expirationDate;
+                    }
 
                     mStorage.storeAccessToken(accessToken);
                 });
