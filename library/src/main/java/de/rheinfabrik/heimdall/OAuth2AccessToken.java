@@ -45,7 +45,7 @@ public class OAuth2AccessToken implements Serializable {
      * expiration time via other means or document the default value.
      */
     @SerializedName("expires_in")
-    public int expiresIn;
+    public Integer expiresIn;
 
     /**
      * The expiration date used by Heimdall.
@@ -61,7 +61,7 @@ public class OAuth2AccessToken implements Serializable {
      * @return True if expired. Otherwise false.
      */
     public boolean isExpired() {
-        return expirationDate == null || Calendar.getInstance().after(expirationDate);
+        return expirationDate != null && Calendar.getInstance().after(expirationDate);
     }
 
     // Object

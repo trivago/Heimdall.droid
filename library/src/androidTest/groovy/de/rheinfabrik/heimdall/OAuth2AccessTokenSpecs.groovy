@@ -4,6 +4,8 @@ import com.andrewreitz.spock.android.AndroidSpecification
 import com.google.gson.Gson
 import spock.lang.Title
 
+import static java.util.TimeZone.getTimeZone
+
 @Title("Specs for serialization in the OAuth2AccessToken class.")
 class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
 
@@ -13,7 +15,7 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
 
         given: "An OAuth2AccessToken"
             OAuth2AccessToken accessToken = new OAuth2AccessToken(refreshToken: "rt", expiresIn: 3600, accessToken: "at", tokenType: "bearer")
-            accessToken.expirationDate = Calendar.getInstance(Locale.UK)
+            accessToken.expirationDate = Calendar.getInstance(getTimeZone("UTC"))
             accessToken.expirationDate.setTimeInMillis(0)
 
         when: "I serialize it with Gson"
@@ -38,7 +40,7 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
                 accessToken.accessToken == "at"
                 accessToken.tokenType == "bearer"
 
-                Calendar calendar = Calendar.getInstance(Locale.UK)
+                Calendar calendar = Calendar.getInstance(getTimeZone("UTC"))
                 calendar.setTimeInMillis(0)
                 accessToken.expirationDate == calendar
             })
@@ -51,7 +53,7 @@ class OAuth2AccessTokenIsExpiredSpecs extends AndroidSpecification {
     // Scenarios
 
     @SuppressWarnings("GroovyPointlessBoolean")
-    def "It should return true if the expirationDate is null"() {
+    def "It should return false if the expirationDate is null"() {
 
         given: "An OAuth2AccessToken with null as expirationDate"
             OAuth2AccessToken accessToken = new OAuth2AccessToken(expirationDate: null)
@@ -60,7 +62,7 @@ class OAuth2AccessTokenIsExpiredSpecs extends AndroidSpecification {
             boolean isExpired = accessToken.isExpired()
 
         then: "It should be true"
-            isExpired == true
+            isExpired == false
     }
 
     @SuppressWarnings("GroovyPointlessBoolean")
