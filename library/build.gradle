@@ -57,7 +57,7 @@ repositories {
 dependencies {
 
     // Rx
-    compile 'io.reactivex:rxandroid-framework:0.24.0'
+    compile 'io.reactivex:rxjava:1.0.12'
 
     // GSON
     compile 'com.google.code.gson:gson:2.3.1'

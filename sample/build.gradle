@@ -40,6 +40,9 @@ dependencies {
     // Heimdall
     compile project(':library')
 
+    // Rx
+    compile 'io.reactivex:rxandroid-framework:0.24.0'
+
     // Serialization
     compile 'com.google.code.gson:gson:2.3'
     compile 'org.parceler:parceler-api:0.2.16'
