@@ -23,7 +23,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
     public static TraktTvOauth2AccessTokenManager from(Context context) {
 
         // Define the shared preferences where we will save the access token
-        SharedPreferences sharedPreferences = context.getSharedPreferences("GitHubAccessTokenStorage", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("TraktTvAccessTokenStorage", Context.MODE_PRIVATE);
 
         // Define the storage using the the previously defined preferences
         SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> tokenStorage = new SharedPreferencesOAuth2AccessTokenStorage<>(sharedPreferences, OAuth2AccessToken.class);
