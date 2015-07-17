@@ -35,7 +35,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 9
         targetSdkVersion 22
         versionCode 101
         versionName "1.0.1"
@@ -64,7 +64,7 @@ dependencies {
 
     // Spock
     androidTestCompile 'org.codehaus.groovy:groovy:2.4.2:grooid'
-    androidTestCompile "com.andrewreitz:spock-android:1.2.0"
+    androidTestCompile "com.andrewreitz:spock-android:1.2.1"
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
     androidTestCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude group: 'org.codehaus.groovy'
