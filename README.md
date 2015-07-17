@@ -6,10 +6,12 @@ This library makes use of [RxJava](https://github.com/ReactiveX/RxJava). Therefo
 
 If you are an iOS Developer then please take a look at the [Swift version of Heimdall](https://github.com/rheinfabrik/Heimdall.swift).
 
-## Installation
+[![JitPack.io](http://img.shields.io/github/release/rheinfabrik/Heimdall.droid.svg?label=Heimdall)](https://jitpack.io/#rheinfabrik/Heimdall.droid)
+[![Travis Ci](https://travis-ci.org/rheinfabrik/Heimdall.droid.svg?branch=master)](https://travis-ci.org/rheinfabrik/Heimdall.droid)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Heimdall.droid-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2016)
+[![Api](https://img.shields.io/badge/API-9%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=9)
 
-[![Build Status](http://img.shields.io/github/release/rheinfabrik/Heimdall.droid.svg?label=Heimdall)](https://jitpack.io/#rheinfabrik/Heimdall.droid)
-[![Build Status](https://travis-ci.org/rheinfabrik/Heimdall.droid.svg?branch=master)](https://travis-ci.org/rheinfabrik/Heimdall.droid)
+## Installation
 
 Heimdall is ready to be used via [jitpack.io](https://jitpack.io/#rheinfabrik/Heimdall.droid).
 Simply add the following code to your root `build.gradle`:
