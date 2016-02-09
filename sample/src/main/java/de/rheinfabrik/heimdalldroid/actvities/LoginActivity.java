@@ -7,16 +7,15 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.rheinfabrik.heimdalldroid.R;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvAuthorizationCodeGrant;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManager;
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
-import de.rheinfabrik.heimdalldroid.utils.rx.RxAppCompatActivity;
 import rx.android.schedulers.AndroidSchedulers;
-
-import static rx.android.lifecycle.LifecycleObservable.bindActivityLifecycle;
 
 /**
  * Activity used to let the user login with his GitHub credentials.
@@ -57,8 +56,9 @@ public class LoginActivity extends RxAppCompatActivity {
         TraktTvAuthorizationCodeGrant grant = tokenManager.newAuthorizationCodeGrant();
 
         // Listen for the authorization url and load it once needed
-        bindActivityLifecycle(lifecycle(), grant.authorizationUri())
+        grant.authorizationUri()
                 .map(Uri::toString)
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mWebView::loadUrl);
 
@@ -79,7 +79,8 @@ public class LoginActivity extends RxAppCompatActivity {
         });
 
         // Start authorization and listen for success
-        bindActivityLifecycle(lifecycle(), tokenManager.grantNewAccessToken(grant))
+        tokenManager.grantNewAccessToken(grant)
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(x -> handleSuccess(), x -> handleError());
     }

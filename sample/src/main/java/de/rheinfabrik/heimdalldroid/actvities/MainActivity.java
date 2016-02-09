@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -19,11 +21,9 @@ import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManager;
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
 import de.rheinfabrik.heimdalldroid.utils.IntentFactory;
-import de.rheinfabrik.heimdalldroid.utils.rx.RxAppCompatActivity;
+import retrofit.RetrofitError;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-
-import static rx.android.lifecycle.LifecycleObservable.bindActivityLifecycle;
 
 /**
  * Activity showing either the list of the user's repositories or the login screen.
@@ -107,7 +107,8 @@ public class MainActivity extends RxAppCompatActivity {
                 .concatMap(authorizationHeader -> TraktTvApiFactory.newApiService().getLists(authorizationHeader));
 
         // Bind to lifecycle
-        bindActivityLifecycle(lifecycle(), listsObservable)
+        listsObservable
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(lists -> {
                     if (lists == null || lists.isEmpty()) {
@@ -152,6 +153,7 @@ public class MainActivity extends RxAppCompatActivity {
         mSwipeRefreshLayout.setRefreshing(true);
 
         mTokenManager.getStorage().hasAccessToken()
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loggedIn -> {
                     if (loggedIn) {
