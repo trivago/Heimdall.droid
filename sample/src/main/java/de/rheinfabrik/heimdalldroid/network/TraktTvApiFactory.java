@@ -27,7 +27,7 @@ public class TraktTvApiFactory {
                 .setRequestInterceptor(request -> {
                     request.addHeader("Content-type", "application/json");
                     request.addHeader("trakt-api-version", "2");
-                    request.addHeader("trakt-api-key", TraktTvAPIConfiguration.API_KEY);
+                    request.addHeader("trakt-api-key", TraktTvAPIConfiguration.CLIENT_ID);
                 })
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(API_ENDPOINT);
