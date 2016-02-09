@@ -116,7 +116,7 @@ public class MainActivity extends RxAppCompatActivity {
                     } else {
                         handleSuccess(lists);
                     }
-                }, x -> handleError());
+                }, this::handleError);
     }
 
     // Start the LoginActivity.
@@ -135,10 +135,20 @@ public class MainActivity extends RxAppCompatActivity {
     }
 
     // Show an error dialog
-    private void handleError() {
+    private void handleError(Throwable error) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-        AlertDialogFactory.errorAlertDialog(this).show();
+        // Clear token and login if 401
+        if (error instanceof RetrofitError) {
+            RetrofitError retrofitError = (RetrofitError) error;
+            if (retrofitError.getResponse().getStatus() == 401) {
+                mTokenManager.getStorage().removeAccessToken();
+
+                refresh();
+            }
+        } else {
+            AlertDialogFactory.errorAlertDialog(this).show();
+        }
     }
 
     // Update our recycler view
