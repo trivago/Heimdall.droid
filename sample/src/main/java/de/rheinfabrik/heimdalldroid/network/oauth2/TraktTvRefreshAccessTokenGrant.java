@@ -5,6 +5,7 @@ import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
 import rx.Observable;
+import rx.Single;
 
 /**
  * TraktTv refresh token grant as described in http://docs.trakt.apiary.io/#reference/authentication-oauth/token/exchange-refresh_token-for-access_token.
@@ -20,8 +21,8 @@ public class TraktTvRefreshAccessTokenGrant extends OAuth2RefreshAccessTokenGran
     // OAuth2RefreshAccessTokenGrant
 
     @Override
-    public Observable<OAuth2AccessToken> grantNewAccessToken() {
+    public Single<OAuth2AccessToken> grantNewAccessToken() {
         RefreshTokenRequestBody body = new RefreshTokenRequestBody(refreshToken, clientId, clientSecret, redirectUri, GRANT_TYPE);
-        return TraktTvApiFactory.newApiService().refreshAccessToken(body);
+        return TraktTvApiFactory.newApiService().refreshAccessToken(body).toSingle();
     }
 }

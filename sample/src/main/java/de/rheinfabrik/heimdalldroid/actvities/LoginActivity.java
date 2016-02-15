@@ -80,6 +80,7 @@ public class LoginActivity extends RxAppCompatActivity {
 
         // Start authorization and listen for success
         tokenManager.grantNewAccessToken(grant)
+                .toObservable()
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(x -> handleSuccess(), x -> handleError());

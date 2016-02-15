@@ -1,6 +1,6 @@
 package de.rheinfabrik.heimdall;
 
-import rx.Observable;
+import rx.Single;
 
 /**
  * Interface used to define how to store and retrieve a stored access token.
@@ -16,7 +16,7 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      *
      * @return - An Observable emitting the stored access token.
      */
-    Observable<TAccessToken> getStoredAccessToken();
+    Single<TAccessToken> getStoredAccessToken();
 
     /**
      * Stores the given access token.
@@ -31,7 +31,7 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      * @return - An Observable emitting true or false based on whether there is or is not an
      * access token.
      */
-    Observable<Boolean> hasAccessToken();
+    Single<Boolean> hasAccessToken();
 
     /**
      * Removes the stored access token.

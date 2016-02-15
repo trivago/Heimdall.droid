@@ -53,7 +53,7 @@ class SharedPreferencesOAuth2AccessTokenStorageGetStoredAccessTokenSpecs extends
             SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> storage = new SharedPreferencesOAuth2AccessTokenStorage<>(preferences, OAuth2AccessToken.class)
 
         when: "I ask for the access token"
-            OAuth2AccessToken token = storage.getStoredAccessToken().toBlocking().first()
+            OAuth2AccessToken token = storage.getStoredAccessToken().toBlocking().value()
 
         then: "The token should have the correct access token"
             token.accessToken == "2YotnFZFEjr1zCsicMWpAA"
@@ -111,7 +111,7 @@ class SharedPreferencesOAuth2AccessTokenStorageHasAccessTokenSpecs extends Andro
             SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> storage = new SharedPreferencesOAuth2AccessTokenStorage<>(preferences, OAuth2AccessToken.class)
 
         when: "I ask if there is a token"
-            boolean hasToken = storage.hasAccessToken().toBlocking().first()
+            boolean hasToken = storage.hasAccessToken().toBlocking().value()
 
         then: "It should be true"
             hasToken == true
@@ -128,7 +128,7 @@ class SharedPreferencesOAuth2AccessTokenStorageHasAccessTokenSpecs extends Andro
             SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> storage = new SharedPreferencesOAuth2AccessTokenStorage<>(preferences, OAuth2AccessToken.class)
 
         when: "I ask if there is a token"
-            boolean hasToken = storage.hasAccessToken().toBlocking().first()
+            boolean hasToken = storage.hasAccessToken().toBlocking().value()
 
         then: "It should be false"
             hasToken == false
