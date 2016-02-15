@@ -1,7 +1,7 @@
 package de.rheinfabrik.heimdall.grants;
 
 import de.rheinfabrik.heimdall.OAuth2AccessToken;
-import rx.Observable;
+import rx.Single;
 
 /**
  * Interface describing an OAuth2 Grant as described in https://tools.ietf.org/html/rfc6749#page-23.
@@ -17,5 +17,5 @@ public interface OAuth2Grant<TAccessToken extends OAuth2AccessToken> {
      *
      * @return - An Observable emitting the granted access token.
      */
-    Observable<TAccessToken> grantNewAccessToken();
+    Single<TAccessToken> grantNewAccessToken();
 }

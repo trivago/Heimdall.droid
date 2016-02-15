@@ -8,7 +8,7 @@ import de.rheinfabrik.heimdall.OAuth2AccessTokenManager;
 import de.rheinfabrik.heimdall.OAuth2AccessTokenStorage;
 import de.rheinfabrik.heimdall.extras.SharedPreferencesOAuth2AccessTokenStorage;
 import de.rheinfabrik.heimdalldroid.network.TraktTvAPIConfiguration;
-import rx.Observable;
+import rx.Single;
 
 /**
  * Token manger used to handle all your access token needs with the TraktTv API (http://docs.trakt.apiary.io/#).
@@ -55,7 +55,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
     /**
      * Returns a valid authorization header string using a preconfigured TraktTvRefreshAccessTokenGrant.
      */
-    public Observable<String> getValidAccessToken() {
+    public Single<String> getValidAccessToken() {
         TraktTvRefreshAccessTokenGrant grant = new TraktTvRefreshAccessTokenGrant();
         grant.clientId = TraktTvAPIConfiguration.CLIENT_ID;
         grant.clientSecret = TraktTvAPIConfiguration.CLIENT_SECRET;

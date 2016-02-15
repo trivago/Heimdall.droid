@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -19,11 +21,9 @@ import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManager;
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
 import de.rheinfabrik.heimdalldroid.utils.IntentFactory;
-import de.rheinfabrik.heimdalldroid.utils.rx.RxAppCompatActivity;
+import retrofit.RetrofitError;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-
-import static rx.android.lifecycle.LifecycleObservable.bindActivityLifecycle;
 
 /**
  * Activity showing either the list of the user's repositories or the login screen.
@@ -104,10 +104,11 @@ public class MainActivity extends RxAppCompatActivity {
                 .getValidAccessToken()
 
                  /* Load lists */
-                .concatMap(authorizationHeader -> TraktTvApiFactory.newApiService().getLists(authorizationHeader));
+                .flatMapObservable(authorizationHeader -> TraktTvApiFactory.newApiService().getLists(authorizationHeader));
 
         // Bind to lifecycle
-        bindActivityLifecycle(lifecycle(), listsObservable)
+        listsObservable
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(lists -> {
                     if (lists == null || lists.isEmpty()) {
@@ -115,7 +116,7 @@ public class MainActivity extends RxAppCompatActivity {
                     } else {
                         handleSuccess(lists);
                     }
-                }, x -> handleError());
+                }, this::handleError);
     }
 
     // Start the LoginActivity.
@@ -134,10 +135,20 @@ public class MainActivity extends RxAppCompatActivity {
     }
 
     // Show an error dialog
-    private void handleError() {
+    private void handleError(Throwable error) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-        AlertDialogFactory.errorAlertDialog(this).show();
+        // Clear token and login if 401
+        if (error instanceof RetrofitError) {
+            RetrofitError retrofitError = (RetrofitError) error;
+            if (retrofitError.getResponse().getStatus() == 401) {
+                mTokenManager.getStorage().removeAccessToken();
+
+                refresh();
+            }
+        } else {
+            AlertDialogFactory.errorAlertDialog(this).show();
+        }
     }
 
     // Update our recycler view
@@ -152,6 +163,8 @@ public class MainActivity extends RxAppCompatActivity {
         mSwipeRefreshLayout.setRefreshing(true);
 
         mTokenManager.getStorage().hasAccessToken()
+                .toObservable()
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loggedIn -> {
                     if (loggedIn) {
