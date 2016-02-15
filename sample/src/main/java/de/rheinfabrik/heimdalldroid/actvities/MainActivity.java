@@ -104,7 +104,7 @@ public class MainActivity extends RxAppCompatActivity {
                 .getValidAccessToken()
 
                  /* Load lists */
-                .concatMap(authorizationHeader -> TraktTvApiFactory.newApiService().getLists(authorizationHeader));
+                .flatMapObservable(authorizationHeader -> TraktTvApiFactory.newApiService().getLists(authorizationHeader));
 
         // Bind to lifecycle
         listsObservable
@@ -163,6 +163,7 @@ public class MainActivity extends RxAppCompatActivity {
         mSwipeRefreshLayout.setRefreshing(true);
 
         mTokenManager.getStorage().hasAccessToken()
+                .toObservable()
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loggedIn -> {

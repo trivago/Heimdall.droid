@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 import de.rheinfabrik.heimdall.OAuth2AccessToken;
 import de.rheinfabrik.heimdall.OAuth2AccessTokenStorage;
-import rx.Observable;
+import rx.Single;
 
 /**
  * A simple storage that saves the access token as plain text in the passed shared preferences.
@@ -52,16 +52,9 @@ public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAut
 
     @SuppressWarnings("unchecked")
     @Override
-    public Observable<TAccessToken> getStoredAccessToken() {
-        return Observable
+    public Single<TAccessToken> getStoredAccessToken() {
+        return Single
                 .just(mSharedPreferences.getString(ACCESS_TOKEN_PREFERENCES_KEY, null))
-                .filter(accessToken -> {
-                    if (accessToken == null) {
-                        throw new RuntimeException("No access token found.");
-                    }
-
-                    return true;
-                })
                 .map(json -> (TAccessToken) new Gson().fromJson(json, mTokenClass));
     }
 
@@ -74,8 +67,8 @@ public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAut
     }
 
     @Override
-    public Observable<Boolean> hasAccessToken() {
-        return Observable.just(mSharedPreferences.contains(ACCESS_TOKEN_PREFERENCES_KEY));
+    public Single<Boolean> hasAccessToken() {
+        return Single.just(mSharedPreferences.contains(ACCESS_TOKEN_PREFERENCES_KEY));
     }
 
     @Override
