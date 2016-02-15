@@ -1,6 +1,10 @@
 language: android
+
 jdk: oraclejdk8
+
 env:
+  global:
+    - MALLOC_ARENA_MAX=2
   matrix:
     - ANDROID_TARGET=android-22  ANDROID_ABI=armeabi-v7a
 
@@ -14,7 +18,9 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
-    
+
+sudo: required
+
 before_script:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
