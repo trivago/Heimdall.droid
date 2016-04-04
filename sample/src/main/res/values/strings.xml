@@ -15,5 +15,6 @@
 
     <!-- Item views -->
     <string name="likes_postfix">" Likes"</string>
+    <string name="menu_action_logout">Logout</string>
 
 </resources>

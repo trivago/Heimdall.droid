@@ -8,6 +8,8 @@ import de.rheinfabrik.heimdall.OAuth2AccessTokenManager;
 import de.rheinfabrik.heimdall.OAuth2AccessTokenStorage;
 import de.rheinfabrik.heimdall.extras.SharedPreferencesOAuth2AccessTokenStorage;
 import de.rheinfabrik.heimdalldroid.network.TraktTvAPIConfiguration;
+import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
+import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
 import rx.Single;
 
 /**
@@ -62,5 +64,20 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
         grant.redirectUri = TraktTvAPIConfiguration.REDIRECT_URI;
 
         return super.getValidAccessToken(grant).map(token -> token.tokenType + " " + token.accessToken);
+    }
+
+    /**
+     * Logs out the user if he is logged in.
+     */
+    public Single<Void> logout() {
+        return getStorage().getStoredAccessToken()
+                .toObservable()
+                .filter(token -> token != null)
+                .concatMap(accessToken -> {
+                    RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.accessToken);
+                    return TraktTvApiFactory.newApiService().revokeAccessToken(body);
+                })
+                .doOnNext(x -> getStorage().removeAccessToken())
+                .toSingle();
     }
 }

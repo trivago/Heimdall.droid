@@ -5,6 +5,7 @@ import java.util.List;
 import de.rheinfabrik.heimdall.OAuth2AccessToken;
 import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
+import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
 import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -24,6 +25,9 @@ public interface TraktTvApiService {
 
     @POST("/oauth/token")
     Observable<OAuth2AccessToken> refreshAccessToken(@Body RefreshTokenRequestBody body);
+
+    @POST("/oauth/revoke")
+    Observable<Void> revokeAccessToken(@Body RevokeAccessTokenBody body);
 
     // GET
 
