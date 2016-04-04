@@ -4,7 +4,6 @@ import de.rheinfabrik.heimdall.OAuth2AccessToken;
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
-import rx.Observable;
 import rx.Single;
 
 /**

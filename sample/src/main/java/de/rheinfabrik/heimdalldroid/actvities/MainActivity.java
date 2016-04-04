@@ -2,11 +2,16 @@ package de.rheinfabrik.heimdalldroid.actvities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.webkit.CookieManager;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -93,6 +98,25 @@ public class MainActivity extends RxAppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout: {
+                logout();
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     // Private Api
 
     private void loadLists() {
@@ -173,5 +197,23 @@ public class MainActivity extends RxAppCompatActivity {
                         showLogin();
                     }
                 });
+    }
+
+    // Logs out the user
+    private void logout() {
+
+        // Ask token manager to revoke the token
+        mTokenManager.logout()
+                .toObservable()
+                .compose(bindToLifecycle())
+                .subscribe(x -> showLogin());
+
+        // Clear webview cache
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeAllCookies(null);
+        } else {
+            cookieManager.removeAllCookie();
+        }
     }
 }
