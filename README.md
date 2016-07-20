@@ -4,9 +4,9 @@ Heimdall is an [OAuth 2.0](https://tools.ietf.org/html/rfc6749) client specifica
 
 This library makes use of [RxJava](https://github.com/ReactiveX/RxJava). Therefore you should be familar with [Observables](https://github.com/ReactiveX/RxJava/wiki/Observable).
 
-If you are an iOS Developer then please take a look at the [Swift version of Heimdall](https://github.com/rheinfabrik/Heimdall.swift).
+If you are an iOS Developer then please take a look at the [Swift version of Heimdall](https://github.com/trivago/Heimdallr.swift).
 
-[![JitPack.io](http://img.shields.io/github/release/rheinfabrik/Heimdall.droid.svg?label=Heimdall)](https://jitpack.io/#rheinfabrik/Heimdall.droid)
+[![JitPack.io](http://img.shields.io/github/release/trivago/Heimdall.droid.svg?label=Heimdall)](https://jitpack.io/#rheinfabrik/Heimdall.droid)
 [![Travis Ci](https://travis-ci.org/rheinfabrik/Heimdall.droid.svg?branch=master)](https://travis-ci.org/rheinfabrik/Heimdall.droid)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Heimdall.droid-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2016)
 [![Api](https://img.shields.io/badge/API-9%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=9)
@@ -148,7 +148,7 @@ Please also check out our sample application which performs an authorization aga
 
 ## About
 
-Heimdall was built by [Rheinfabrik](http://www.rheinfabrik.de) :factory:
+Heimdall was built by [trivago](http://www.trivago.com) :factory:
 
 ## License
 
