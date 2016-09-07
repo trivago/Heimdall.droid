@@ -4,8 +4,8 @@ import java.util.Calendar;
 
 import de.rheinfabrik.heimdall.grants.OAuth2Grant;
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant;
+import rx.Observable;
 import rx.Single;
-import rx.functions.Func1;
 
 import static rx.Single.error;
 
@@ -20,6 +20,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
     // Members
 
     private final OAuth2AccessTokenStorage<TAccessToken> mStorage;
+    private Observable<TAccessToken> mTokenObservable;
 
     // Constructor
 
@@ -71,17 +72,25 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
             throw new IllegalArgumentException("Grant MUST NOT be null.");
         }
 
-        return grant
-                .grantNewAccessToken()
-                .doOnSuccess(accessToken -> {
-                    if (accessToken.expiresIn != null) {
-                        Calendar expirationDate = (Calendar) calendar.clone();
-                        expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
-                        accessToken.expirationDate = expirationDate;
-                    }
+        if (mTokenObservable == null) {
+            mTokenObservable = grant
+                    .grantNewAccessToken()
+                    .doOnSuccess(accessToken -> {
+                        if (accessToken.expiresIn != null) {
+                            Calendar expirationDate = (Calendar) calendar.clone();
+                            expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
+                            accessToken.expirationDate = expirationDate;
+                        }
 
-                    mStorage.storeAccessToken(accessToken);
-                });
+                        mStorage.storeAccessToken(accessToken);
+
+                        mTokenObservable = null;
+                    })
+                    .toObservable()
+                    .cache();
+        }
+
+        return mTokenObservable.toSingle();
     }
 
     /**
