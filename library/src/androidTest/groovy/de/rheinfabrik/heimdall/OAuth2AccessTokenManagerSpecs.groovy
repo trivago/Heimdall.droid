@@ -5,6 +5,8 @@ import de.rheinfabrik.heimdall.grants.OAuth2Grant
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant
 import spock.lang.Title
 
+import java.util.concurrent.TimeUnit
+
 import static rx.Single.just
 
 @Title("Tests for the constructor of the OAuth2AccessTokenManager class")
@@ -137,6 +139,39 @@ class OAuth2AccessTokenManagerGetStorageSpecs extends AndroidSpecification {
 class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecification {
 
     // Scenarios
+
+    def "it should only request a new valid token ONCE"() {
+
+        given: "An expired OAuth2AccessToken"
+            OAuth2AccessToken accessToken = Mock(OAuth2AccessToken)
+            accessToken.refreshToken = "rt"
+            accessToken.isExpired() >> true
+
+        and: "A mock storage emitting that token"
+            OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
+            storage.getStoredAccessToken() >> just(accessToken).delay(1, TimeUnit.SECONDS)
+
+        and: "An OAuth2AccessTokenManager with that storage"
+            OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
+
+        and: "A mock grant"
+            OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
+
+        when: "I ask for a valid access token"
+            tokenManager.getValidAccessToken(grant).subscribe()
+
+        and: "I ask again"
+            tokenManager.getValidAccessToken(grant).subscribe()
+
+        and: "I wait 2 seconds"
+            sleep(2000)
+
+        and: "I ask again"
+            tokenManager.getValidAccessToken(grant).subscribe()
+
+        then: "The refresh grant is asked for a new token TWICE"
+            2 * grant.grantNewAccessToken() >> just(accessToken) >> just(accessToken)
+    }
 
     def "it should throw an IllegalArgumentException when the refreshAccessTokenGrant parameter is null"() {
 
