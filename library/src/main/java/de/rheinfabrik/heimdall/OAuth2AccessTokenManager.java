@@ -20,7 +20,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
     // Members
 
     private final OAuth2AccessTokenStorage<TAccessToken> mStorage;
-    private Observable<TAccessToken> mTokenObservable;
+    private Single<TAccessToken> mTokenSingle;
 
     // Constructor
 
@@ -72,8 +72,8 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
             throw new IllegalArgumentException("Grant MUST NOT be null.");
         }
 
-        if (mTokenObservable == null) {
-            mTokenObservable = grant
+        if (mTokenSingle == null) {
+            mTokenSingle = grant
                     .grantNewAccessToken()
                     .doOnSuccess(accessToken -> {
                         if (accessToken.expiresIn != null) {
@@ -84,13 +84,11 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
 
                         mStorage.storeAccessToken(accessToken);
 
-                        mTokenObservable = null;
-                    })
-                    .toObservable()
-                    .cache();
+                        mTokenSingle = null;
+                    });
         }
 
-        return mTokenObservable.toSingle();
+        return mTokenSingle;
     }
 
     /**

@@ -170,7 +170,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
             tokenManager.getValidAccessToken(grant).subscribe()
 
         then: "The refresh grant is asked for a new token TWICE"
-            2 * grant.grantNewAccessToken() >> just(accessToken)
+            2 * grant.grantNewAccessToken() >> just(accessToken) >> just(accessToken)
     }
 
     def "it should throw an IllegalArgumentException when the refreshAccessTokenGrant parameter is null"() {
