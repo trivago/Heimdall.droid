@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 import de.rheinfabrik.heimdall.grants.OAuth2Grant;
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant;
-import rx.Observable;
 import rx.Single;
 
 import static rx.Single.error;
@@ -85,7 +84,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
                         mStorage.storeAccessToken(accessToken);
 
                         mTokenSingle = null;
-                    });
+                    }).toObservable().cache().toSingle();
         }
 
         return mTokenSingle;
