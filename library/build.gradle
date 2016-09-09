@@ -38,7 +38,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 105
-        versionName "1.0.5"
+        versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
