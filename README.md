@@ -135,7 +135,7 @@ grant.authorizationUri()
 
 // Start the authorization process
 grant.grantNewAccessToken()
-	.subscrive(token -> Log.d("Heimdall", "New token: " + token))
+	.subscribe(token -> Log.d("Heimdall", "New token: " + token))
 
 ```
 
