@@ -19,7 +19,6 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
     // Members
 
     private final OAuth2AccessTokenStorage<TAccessToken> mStorage;
-    private Single<TAccessToken> mTokenSingle;
 
     // Constructor
 
@@ -71,23 +70,15 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
             throw new IllegalArgumentException("Grant MUST NOT be null.");
         }
 
-        if (mTokenSingle == null) {
-            mTokenSingle = grant
-                    .grantNewAccessToken()
-                    .doOnSuccess(accessToken -> {
-                        if (accessToken.expiresIn != null) {
-                            Calendar expirationDate = (Calendar) calendar.clone();
-                            expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
-                            accessToken.expirationDate = expirationDate;
-                        }
-
-                        mStorage.storeAccessToken(accessToken);
-
-                        mTokenSingle = null;
-                    }).toObservable().cache().toSingle();
-        }
-
-        return mTokenSingle;
+        return grant.grantNewAccessToken()
+                .doOnSuccess(accessToken -> {
+                    if (accessToken.expiresIn != null) {
+                        Calendar expirationDate = (Calendar) calendar.clone();
+                        expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
+                        accessToken.expirationDate = expirationDate;
+                    }
+                    mStorage.storeAccessToken(accessToken);
+                }).toObservable().cache().toSingle();
     }
 
     /**

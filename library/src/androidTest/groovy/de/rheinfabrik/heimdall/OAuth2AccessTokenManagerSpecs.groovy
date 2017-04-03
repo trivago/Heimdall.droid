@@ -3,11 +3,11 @@ package de.rheinfabrik.heimdall
 import com.andrewreitz.spock.android.AndroidSpecification
 import de.rheinfabrik.heimdall.grants.OAuth2Grant
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant
+import groovy.transform.CompileStatic
+import rx.Single
 import spock.lang.Title
 
 import java.util.concurrent.TimeUnit
-
-import static rx.Single.just
 
 @Title("Tests for the constructor of the OAuth2AccessTokenManager class")
 class OAuth2AccessTokenManagerConstructorSpecs extends AndroidSpecification {
@@ -56,7 +56,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
 
         and: "A grant emitting that token"
             OAuth2Grant grant = Mock(OAuth2Grant)
-            grant.grantNewAccessToken() >> just(accessToken)
+            grant.grantNewAccessToken() >> Single.just(accessToken)
 
         and: "An OAuth2AccessTokenManager"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(Mock(OAuth2AccessTokenStorage))
@@ -79,7 +79,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
 
         and: "A grant emitting that token"
             OAuth2Grant grant = Mock(OAuth2Grant)
-            grant.grantNewAccessToken() >> just(accessToken)
+            grant.grantNewAccessToken() >> Single.just(accessToken)
 
         and: "An OAuth2AccessTokenManager"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(Mock(OAuth2AccessTokenStorage))
@@ -98,7 +98,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
 
         and: "A grant emitting that token"
             OAuth2Grant grant = Mock(OAuth2Grant)
-            grant.grantNewAccessToken() >> just(accessToken)
+            grant.grantNewAccessToken() >> Single.just(accessToken)
 
         and: "A mock storage"
             OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
@@ -140,77 +140,6 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
 
     // Scenarios
 
-    def "it should only request a new valid token ONCE"() {
-
-        given: "An expired OAuth2AccessToken"
-            OAuth2AccessToken accessToken = Mock(OAuth2AccessToken)
-            accessToken.refreshToken = "rt"
-            accessToken.isExpired() >> true
-
-        and: "A mock storage emitting that token"
-            OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
-            storage.getStoredAccessToken() >> just(accessToken)
-
-        and: "An OAuth2AccessTokenManager with that storage"
-            OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
-
-        and: "A mock grant"
-            OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
-            def counter = 0
-            grant.grantNewAccessToken() >> { it ->
-                return just(accessToken).doOnSuccess({ x -> counter++ }).delay(1, TimeUnit.SECONDS)
-            }
-
-        when: "I ask for a valid access token"
-            tokenManager.getValidAccessToken(grant).subscribe()
-
-        and: "I ask again"
-            tokenManager.getValidAccessToken(grant).subscribe()
-
-        and: "I wait 2 seconds"
-            sleep(2000)
-
-        then: "The refresh grant is asked for a new token ONCE"
-            counter == 1
-    }
-
-    def "it should clear the current request once done"() {
-
-        given: "An expired OAuth2AccessToken"
-            OAuth2AccessToken accessToken = Mock(OAuth2AccessToken)
-            accessToken.refreshToken = "rt"
-            accessToken.isExpired() >> true
-
-        and: "A mock storage emitting that token"
-            OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
-            storage.getStoredAccessToken() >> just(accessToken)
-
-        and: "An OAuth2AccessTokenManager with that storage"
-            OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
-
-        and: "A mock grant"
-            OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
-            def counter = 0
-            grant.grantNewAccessToken() >> { it ->
-                return just(accessToken).doOnSuccess({ x -> counter++ }).delay(1, TimeUnit.SECONDS)
-            }
-
-        when: "I ask for a valid access token"
-            tokenManager.getValidAccessToken(grant).subscribe()
-
-        and: "I ask again"
-            tokenManager.getValidAccessToken(grant).subscribe()
-
-        and: "I wait 2 seconds"
-            sleep(2000)
-
-        and: "I ask again"
-            tokenManager.getValidAccessToken(grant).subscribe()
-
-        then: "The refresh grant is asked for a new token TWICE"
-            counter == 2
-    }
-
     def "it should throw an IllegalArgumentException when the refreshAccessTokenGrant parameter is null"() {
 
         given: "A null grant"
@@ -234,11 +163,11 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
 
         and: "A mock storage emitting that token"
             OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
-            storage.getStoredAccessToken() >> just(accessToken)
+            storage.getStoredAccessToken() >> Single.just(accessToken)
 
         and: "A mock grant"
             OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
-            grant.grantNewAccessToken() >> just(accessToken)
+            grant.grantNewAccessToken() >> Single.just(accessToken)
 
         and: "An OAuth2AccessTokenManager with that storage"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
@@ -259,7 +188,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
 
         and: "A mock storage emitting that token"
             OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
-            storage.getStoredAccessToken() >> just(accessToken)
+            storage.getStoredAccessToken() >> Single.just(accessToken)
 
         and: "An OAuth2AccessTokenManager with that storage"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
@@ -271,7 +200,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
             tokenManager.getValidAccessToken(grant).subscribe()
 
         then: "The refresh grant is asked for a new token"
-            1 * grant.grantNewAccessToken() >> just(accessToken)
+            1 * grant.grantNewAccessToken() >> Single.just(accessToken)
     }
 
     def "it should set the refresh token to the grant if the token is expired"() {
@@ -283,14 +212,14 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecificat
 
         and: "A mock storage emitting that token"
             OAuth2AccessTokenStorage storage = Mock(OAuth2AccessTokenStorage)
-            storage.getStoredAccessToken() >> just(accessToken)
+            storage.getStoredAccessToken() >> Single.just(accessToken)
 
         and: "An OAuth2AccessTokenManager with that storage"
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
 
         and: "A mock grant"
             OAuth2RefreshAccessTokenGrant grant = Mock(OAuth2RefreshAccessTokenGrant)
-            grant.grantNewAccessToken() >> just(accessToken)
+            grant.grantNewAccessToken() >> Single.just(accessToken)
 
         when: "I ask for a valid access token"
             tokenManager.getValidAccessToken(grant).subscribe()
