@@ -21,7 +21,7 @@ group = 'com.github.rheinfabrik'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '23.0.3'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
