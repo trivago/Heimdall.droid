@@ -3,11 +3,8 @@ package de.rheinfabrik.heimdall
 import com.andrewreitz.spock.android.AndroidSpecification
 import de.rheinfabrik.heimdall.grants.OAuth2Grant
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant
-import groovy.transform.CompileStatic
 import rx.Single
 import spock.lang.Title
-
-import java.util.concurrent.TimeUnit
 
 @Title("Tests for the constructor of the OAuth2AccessTokenManager class")
 class OAuth2AccessTokenManagerConstructorSpecs extends AndroidSpecification {
