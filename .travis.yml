@@ -12,7 +12,7 @@ env:
 android:
   components:
     - tools
-    - build-tools-25.0.0
+    - build-tools-23.0.3
     - android-24
     - android-22
     - android-23
