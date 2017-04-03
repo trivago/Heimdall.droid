@@ -22,12 +22,13 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     # Specify at least one system image
+    - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL
     - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
 
 sudo: required
 
 before_script:
-  - echo no | android create avd --force -n test -t ANDROID_API_LEVEL --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t $ANDROID_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
