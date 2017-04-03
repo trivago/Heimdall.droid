@@ -6,8 +6,8 @@ env:
   global:
     - MALLOC_ARENA_MAX=2
     - ADB_INSTALL_TIMEOUT=10
-  matrix:
-    - ANDROID_TARGET=android-25  ANDROID_ABI=google_apis/armeabi-v7a
+    - ANDROID_TARGET=android-25
+    - ANDROID_ABI=google_apis/armeabi-v7a
 
 android:
   components:
