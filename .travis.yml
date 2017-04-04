@@ -6,29 +6,25 @@ env:
   global:
     - MALLOC_ARENA_MAX=2
     - ADB_INSTALL_TIMEOUT=10
-    - ANDROID_API_LEVEL=21
-    - ANDROID_BUILD_TOOLS_VERSION=21.1.2
-    - ANDROID_ABI=google_apis/armeabi-v7a
+  matrix:
+    - ANDROID_TARGET=android-22  ANDROID_ABI=armeabi-v7a
 
 android:
   components:
-    - platform-tools
     - tools
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - android-$ANDROID_API_LEVEL
-    # Support Library
-    - extra-android-support
-    # Latest artifacts in local repository
+    - build-tools-23.0.3
+    - android-24
+    - android-22
+    - android-23
+    - sys-img-armeabi-v7a-android-22
     - extra-google-m2repository
     - extra-android-m2repository
-    # Specify at least one system image
-    - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL
-    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
+    - extra-android-support
 
 sudo: required
 
 before_script:
-  - echo no | android create avd --force -n test -t $ANDROID_API_LEVEL --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
