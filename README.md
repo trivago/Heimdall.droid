@@ -13,6 +13,8 @@ If you are an iOS Developer then please take a look at the [Swift version of Hei
 
 ## Installation
 
+[![Build Status](https://travis-ci.org/AHarazim/Heimdall.droid.svg?branch=devTravisCI)](https://travis-ci.org/AHarazim/Heimdall.droid)
+
 Heimdall is ready to be used via [jitpack.io](https://jitpack.io/#rheinfabrik/Heimdall.droid).
 Simply add the following code to your root `build.gradle`:
 
