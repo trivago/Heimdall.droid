@@ -2,6 +2,7 @@ package de.rheinfabrik.heimdalldroid.network;
 
 import com.google.gson.Gson;
 
+import de.rheinfabrik.heimdalldroid.TraktTvAPIConfiguration;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 
