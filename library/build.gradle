@@ -1,5 +1,6 @@
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'groovy'
+apply plugin: 'maven'
 
 buildscript {
     repositories {
@@ -12,6 +13,15 @@ buildscript {
 }
 
 group = 'com.github.rheinfabrik'
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
 
 repositories {
     mavenCentral()
