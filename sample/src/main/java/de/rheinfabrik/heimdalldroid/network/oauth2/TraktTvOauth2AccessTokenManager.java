@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import de.rheinfabrik.heimdall.OAuth2AccessToken;
 import de.rheinfabrik.heimdall.OAuth2AccessTokenManager;
 import de.rheinfabrik.heimdall.OAuth2AccessTokenStorage;
-import de.rheinfabrik.heimdall.extras.SharedPreferencesOAuth2AccessTokenStorage;
-import de.rheinfabrik.heimdalldroid.network.TraktTvAPIConfiguration;
+import de.rheinfabrik.heimdalldroid.TraktTvAPIConfiguration;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
+import de.rheinfabrik.heimdalldroid.utils.SharedPreferencesOAuth2AccessTokenStorage;
 import rx.Single;
 
 /**

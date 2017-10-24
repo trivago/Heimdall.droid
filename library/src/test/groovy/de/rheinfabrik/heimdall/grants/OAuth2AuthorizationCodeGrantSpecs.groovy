@@ -1,10 +1,10 @@
 package de.rheinfabrik.heimdall.grants
 
-import com.andrewreitz.spock.android.AndroidSpecification
+import spock.lang.Specification
 import spock.lang.Title
 
 @Title("Specs for the OAuth2AuthorizationCodeGrant")
-class OAuth2AuthorizationCodeGrantSpecs extends AndroidSpecification {
+class OAuth2AuthorizationCodeGrantSpecs extends Specification {
 
     // Scenarios
 

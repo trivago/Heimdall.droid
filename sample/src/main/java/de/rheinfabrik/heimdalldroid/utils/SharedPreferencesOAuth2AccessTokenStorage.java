@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall.extras;
+package de.rheinfabrik.heimdalldroid.utils;
 
 import android.content.SharedPreferences;
 
