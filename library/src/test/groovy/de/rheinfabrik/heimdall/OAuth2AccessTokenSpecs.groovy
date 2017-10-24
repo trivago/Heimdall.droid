@@ -1,11 +1,11 @@
 package de.rheinfabrik.heimdall
 
-import com.andrewreitz.spock.android.AndroidSpecification
 import com.google.gson.Gson
+import spock.lang.Specification
 import spock.lang.Title
 
 @Title("Specs for serialization in the OAuth2AccessToken class.")
-class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
+class OAuth2AccessTokenSerializationSpecs extends Specification {
 
     // Setup
 
@@ -41,21 +41,19 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
             OAuth2AccessToken accessToken = new Gson().fromJson(json, OAuth2AccessToken.class)
 
         then: "The OAuth2AccessToken should be as expected"
-            with(accessToken, {
-                accessToken.refreshToken == "rt"
-                accessToken.expiresIn == 3600
-                accessToken.accessToken == "at"
-                accessToken.tokenType == "bearer"
+            accessToken.refreshToken == "rt"
+            accessToken.expiresIn == 3600
+            accessToken.accessToken == "at"
+            accessToken.tokenType == "bearer"
 
-                Calendar calendar = Calendar.getInstance()
-                calendar.setTimeInMillis(0)
-                accessToken.expirationDate.timeInMillis == calendar.timeInMillis
-            })
+            Calendar calendar = Calendar.getInstance()
+            calendar.setTimeInMillis(0)
+            accessToken.expirationDate.timeInMillis == calendar.timeInMillis
     }
 }
 
 @Title("Specs for the isExpired() function in the OAuth2AccessToken class.")
-class OAuth2AccessTokenIsExpiredSpecs extends AndroidSpecification {
+class OAuth2AccessTokenIsExpiredSpecs extends Specification {
 
     // Scenarios
 
