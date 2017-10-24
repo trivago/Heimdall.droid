@@ -29,7 +29,7 @@ class OAuth2AccessTokenSerializationSpecs extends Specification {
             String json = new Gson().toJson(accessToken)
 
         then: "The JSON should be as expected"
-            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
+            json == "{\"token_type\":\"bearer\",\"access_token\":\"at\",\"refresh_token\":\"rt\",\"expires_in\":3600,\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0}}"
     }
 
     def "It should create the correct OAuth2AccessToken for a given JSON"() {
