@@ -1,53 +1,17 @@
-apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'groovyx.grooid.groovy-android'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'groovy'
 
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.3'
-        classpath 'me.tatarka:gradle-retrolambda:2.5.0'
-        classpath 'org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6'
-        classpath 'com.github.dcendents:android-maven-plugin:1.2'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
     }
 }
 
 group = 'com.github.rheinfabrik'
-
-android {
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    packagingOptions {
-        exclude 'LICENSE'
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/services/org.codehaus.groovy.transform.ASTTransformation'
-    }
-
-    defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 23
-        versionCode 107
-        versionName "1.0.8"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-}
 
 repositories {
     mavenCentral()
@@ -60,15 +24,13 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.1'
 
     // GSON
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.code.gson:gson:2.8.0'
 
-    // Spock
-    androidTestCompile 'org.codehaus.groovy:groovy:2.4.2:grooid'
-    androidTestCompile "com.andrewreitz:spock-android:1.2.1"
-    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
-        exclude group: 'org.codehaus.groovy'
+    // Testing
+    testCompile 'junit:junit:4.12'
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude group: 'junit'
     }
-    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+    testCompile "cglib:cglib:2.2"
+    testCompile "org.objenesis:objenesis:1.2"
 }

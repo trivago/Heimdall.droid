@@ -9,6 +9,9 @@ import android.webkit.WebViewClient;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.rheinfabrik.heimdalldroid.R;
@@ -57,7 +60,7 @@ public class LoginActivity extends RxAppCompatActivity {
 
         // Listen for the authorization url and load it once needed
         grant.authorizationUri()
-                .map(Uri::toString)
+                .map(URL::toString)
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mWebView::loadUrl);
@@ -66,14 +69,20 @@ public class LoginActivity extends RxAppCompatActivity {
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
+            public void onPageStarted(WebView view, String urlString, Bitmap favicon) {
+                super.onPageStarted(view, urlString, favicon);
 
-                grant.onUriLoadedCommand.onNext(Uri.parse(url));
+                 try {
+                     URL url = new URL(urlString);
+                     grant.onUrlLoadedCommand.onNext(url);
 
-                // Hide redirect page from user
-                if (url.startsWith(grant.redirectUri)) {
-                    mWebView.setVisibility(View.GONE);
+                     // Hide redirect page from user
+                     if (urlString.startsWith(grant.redirectUri)) {
+                         mWebView.setVisibility(View.GONE);
+                     }
+                 } catch (MalformedURLException ignored) {
+                    // Empty
+
                 }
             }
         });

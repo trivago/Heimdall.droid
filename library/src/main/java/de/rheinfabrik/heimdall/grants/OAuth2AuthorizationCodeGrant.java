@@ -1,6 +1,12 @@
 package de.rheinfabrik.heimdall.grants;
 
-import android.net.Uri;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import de.rheinfabrik.heimdall.OAuth2AccessToken;
 import rx.Observable;
@@ -64,21 +70,21 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
     /**
      * Observable emitting the authorization Uri.
      */
-    public final Observable<Uri> authorizationUri() {
-        return mAuthorizationUriSubject.asObservable();
+    public final Observable<URL> authorizationUri() {
+        return mAuthorizationUrlSubject.asObservable();
     }
 
     /**
      * Command you should send a value to whenever an url in e.g. your web view has been loaded.
      */
-    public final PublishSubject<Uri> onUriLoadedCommand = PublishSubject.create();
+    public final PublishSubject<URL> onUrlLoadedCommand = PublishSubject.create();
 
     // Abstract Api
 
     /**
-     * Called when the grant needs the authorization uri.
+     * Called when the grant needs the authorization url.
      */
-    public abstract Uri buildAuthorizationUri();
+    public abstract URL buildAuthorizationUrl();
 
     /**
      * Called when the grant was able to grab the code and it wants to exchange it for an access token.
@@ -87,20 +93,48 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
 
     // Members
 
-    private final BehaviorSubject<Uri> mAuthorizationUriSubject = BehaviorSubject.create();
+    private final BehaviorSubject<URL> mAuthorizationUrlSubject = BehaviorSubject.create();
 
     // OAuth2AccessToken
 
     @Override
     public Single<TAccessToken> grantNewAccessToken() {
-        mAuthorizationUriSubject.onNext(buildAuthorizationUri());
+        mAuthorizationUrlSubject.onNext(buildAuthorizationUrl());
 
-        return onUriLoadedCommand
-                .map(uri -> uri.getQueryParameter(RESPONSE_TYPE))
+        return onUrlLoadedCommand
+                .map(uri -> {
+                    List<String> values = getQueryParameters(uri).get(RESPONSE_TYPE);
+                    if (values != null && values.size() >= 1) {
+                        return values.get(0);
+                    }
+
+                    return null;
+                })
                 .filter(code -> code != null)
                 .take(1)
                 .retry()
                 .concatMap(this::exchangeTokenUsingCode)
                 .toSingle();
+    }
+
+    // Private
+
+    private static Map<String, List<String>> getQueryParameters(URL url) {
+        final Map<String, List<String>> query_pairs = new LinkedHashMap<>();
+        final String[] pairs = url.getQuery().split("&");
+        for (String pair : pairs) {
+            final int idx = pair.indexOf("=");
+
+            try {
+                final String key = idx > 0 ? URLDecoder.decode(pair.substring(0, idx), "UTF-8") : pair;
+                if (!query_pairs.containsKey(key)) {
+                    query_pairs.put(key, new LinkedList<>());
+                }
+                final String value = idx > 0 && pair.length() > idx + 1 ? URLDecoder.decode(pair.substring(idx + 1), "UTF-8") : null;
+                query_pairs.get(key).add(value);
+            } catch (Exception ignored) {}
+        }
+
+        return query_pairs;
     }
 }

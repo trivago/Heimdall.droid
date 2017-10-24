@@ -1,13 +1,13 @@
 package de.rheinfabrik.heimdall
 
-import com.andrewreitz.spock.android.AndroidSpecification
 import de.rheinfabrik.heimdall.grants.OAuth2Grant
 import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant
 import rx.Single
+import spock.lang.Specification
 import spock.lang.Title
 
 @Title("Tests for the constructor of the OAuth2AccessTokenManager class")
-class OAuth2AccessTokenManagerConstructorSpecs extends AndroidSpecification {
+class OAuth2AccessTokenManagerConstructorSpecs extends Specification {
 
     // Scenarios
 
@@ -26,7 +26,7 @@ class OAuth2AccessTokenManagerConstructorSpecs extends AndroidSpecification {
 }
 
 @Title("Tests for the grantNewAccessToken() function of the OAuth2AccessTokenManager class")
-class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecification {
+class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends Specification {
 
     // Scenarios
 
@@ -112,7 +112,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends AndroidSpecificat
 }
 
 @Title("Tests for the getStorage() function of the OAuth2AccessTokenManager class")
-class OAuth2AccessTokenManagerGetStorageSpecs extends AndroidSpecification {
+class OAuth2AccessTokenManagerGetStorageSpecs extends Specification {
 
     // Scenarios
 
@@ -133,7 +133,7 @@ class OAuth2AccessTokenManagerGetStorageSpecs extends AndroidSpecification {
 }
 
 @Title("Tests for the getValidAccessToken() function of the OAuth2AccessTokenManager class")
-class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends AndroidSpecification {
+class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends Specification {
 
     // Scenarios
 

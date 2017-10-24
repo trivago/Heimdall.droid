@@ -1,11 +1,11 @@
 package de.rheinfabrik.heimdall
 
-import com.andrewreitz.spock.android.AndroidSpecification
 import com.google.gson.Gson
+import spock.lang.Specification
 import spock.lang.Title
 
 @Title("Specs for serialization in the OAuth2AccessToken class.")
-class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
+class OAuth2AccessTokenSerializationSpecs extends Specification {
 
     // Setup
 
@@ -29,7 +29,7 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
             String json = new Gson().toJson(accessToken)
 
         then: "The JSON should be as expected"
-            json == "{\"access_token\":\"at\",\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0},\"expires_in\":3600,\"refresh_token\":\"rt\",\"token_type\":\"bearer\"}"
+            json == "{\"token_type\":\"bearer\",\"access_token\":\"at\",\"refresh_token\":\"rt\",\"expires_in\":3600,\"heimdall_expiration_date\":{\"year\":1970,\"month\":0,\"dayOfMonth\":1,\"hourOfDay\":0,\"minute\":0,\"second\":0}}"
     }
 
     def "It should create the correct OAuth2AccessToken for a given JSON"() {
@@ -41,21 +41,19 @@ class OAuth2AccessTokenSerializationSpecs extends AndroidSpecification {
             OAuth2AccessToken accessToken = new Gson().fromJson(json, OAuth2AccessToken.class)
 
         then: "The OAuth2AccessToken should be as expected"
-            with(accessToken, {
-                accessToken.refreshToken == "rt"
-                accessToken.expiresIn == 3600
-                accessToken.accessToken == "at"
-                accessToken.tokenType == "bearer"
+            accessToken.refreshToken == "rt"
+            accessToken.expiresIn == 3600
+            accessToken.accessToken == "at"
+            accessToken.tokenType == "bearer"
 
-                Calendar calendar = Calendar.getInstance()
-                calendar.setTimeInMillis(0)
-                accessToken.expirationDate.timeInMillis == calendar.timeInMillis
-            })
+            Calendar calendar = Calendar.getInstance()
+            calendar.setTimeInMillis(0)
+            accessToken.expirationDate.timeInMillis == calendar.timeInMillis
     }
 }
 
 @Title("Specs for the isExpired() function in the OAuth2AccessToken class.")
-class OAuth2AccessTokenIsExpiredSpecs extends AndroidSpecification {
+class OAuth2AccessTokenIsExpiredSpecs extends Specification {
 
     // Scenarios
 
