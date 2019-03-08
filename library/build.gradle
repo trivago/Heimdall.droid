@@ -25,6 +25,7 @@ dependencies {
 
     // Rx
     implementation 'io.reactivex:rxjava:1.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.0'
