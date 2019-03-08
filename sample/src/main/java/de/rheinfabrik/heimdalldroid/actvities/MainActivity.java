@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.CookieManager;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
-
+import android.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import de.rheinfabrik.heimdalldroid.R;
 import de.rheinfabrik.heimdalldroid.adapter.TraktTvListsRecyclerViewAdapter;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
@@ -27,8 +28,6 @@ import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManag
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
 import de.rheinfabrik.heimdalldroid.utils.IntentFactory;
 import retrofit.RetrofitError;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Activity showing either the list of the user's repositories or the login screen.
@@ -43,13 +42,13 @@ public class MainActivity extends RxAppCompatActivity {
 
     // Members
 
-    @InjectView(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     protected RecyclerView mRecyclerView;
 
-    @InjectView(R.id.toolbar)
+    @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
 
-    @InjectView(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     protected SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TraktTvOauth2AccessTokenManager mTokenManager;
@@ -64,10 +63,10 @@ public class MainActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Inject views
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // Setup toolbar
-        setSupportActionBar(mToolbar);
+        setActionBar(mToolbar);
 
         // Setup swipe refresh layout
         mSwipeRefreshLayout.setOnRefreshListener(MainActivity.this::refresh);
@@ -108,10 +107,8 @@ public class MainActivity extends RxAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout: {
-                logout();
-            }
+        if (item.getItemId() == R.id.logout) {
+            logout();
         }
 
         return super.onOptionsItemSelected(item);

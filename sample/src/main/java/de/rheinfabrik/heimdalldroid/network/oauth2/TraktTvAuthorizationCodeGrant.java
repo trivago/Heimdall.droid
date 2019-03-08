@@ -2,13 +2,13 @@ package de.rheinfabrik.heimdalldroid.network.oauth2;
 
 import android.net.Uri;
 
+import io.reactivex.Observable;
 import java.net.URL;
 
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
-import de.rheinfabrik.heimdall.grants.OAuth2AuthorizationCodeGrant;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.grants.OAuth2AuthorizationCodeGrant;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
-import rx.Observable;
 
 /**
  * TraktTv authorization code grant as described in http://docs.trakt.apiary.io/#reference/authentication-oauth.

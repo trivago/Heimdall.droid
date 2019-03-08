@@ -1,11 +1,11 @@
 package de.rheinfabrik.heimdalldroid.adapter.viewholder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import de.rheinfabrik.heimdalldroid.R;
 import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 
@@ -16,13 +16,13 @@ public class TraktTvListViewHolder extends RecyclerView.ViewHolder {
 
     // Members
 
-    @InjectView(R.id.titleTextView)
+    @BindView(R.id.titleTextView)
     protected TextView mTitleTextView;
 
-    @InjectView(R.id.descriptionTextView)
+    @BindView(R.id.descriptionTextView)
     protected TextView mDescriptionTextView;
 
-    @InjectView(R.id.likeCountTextView)
+    @BindView(R.id.likeCountTextView)
     protected TextView mLikeCountTextView;
 
     // Constructor
@@ -31,7 +31,7 @@ public class TraktTvListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         // Inject views
-        ButterKnife.inject(this, itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     // Public Api
@@ -45,6 +45,6 @@ public class TraktTvListViewHolder extends RecyclerView.ViewHolder {
         mDescriptionTextView.setText(traktTvList.description);
 
         // Set like count
-        mLikeCountTextView.setText(String.valueOf(traktTvList.numberOfLikes) + itemView.getContext().getString(R.string.likes_postfix));
+        mLikeCountTextView.setText(traktTvList.numberOfLikes + itemView.getContext().getString(R.string.likes_postfix));
     }
 }
