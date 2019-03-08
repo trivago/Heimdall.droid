@@ -1,8 +1,8 @@
-package de.rheinfabrik.heimdall
+package de.rheinfabrik.heimdall2
 
-import de.rheinfabrik.heimdall.grants.OAuth2Grant
-import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant
-import rx.Single
+import de.rheinfabrik.heimdall2.grants.OAuth2Grant
+import de.rheinfabrik.heimdall2.grants.OAuth2RefreshAccessTokenGrant
+import io.reactivex.Single
 import spock.lang.Specification
 import spock.lang.Title
 
@@ -62,7 +62,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends Specification {
             Calendar calendar = Calendar.getInstance()
 
         when: "I ask for a new access token"
-            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant, calendar).toBlocking().value()
+            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant, calendar).blockingGet()
 
         then: "The access token should have the correct expiration date"
             newToken.expirationDate.timeInMillis == calendar.getTimeInMillis() + 3000
@@ -82,7 +82,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends Specification {
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(Mock(OAuth2AccessTokenStorage))
 
         when: "I ask for a new access token"
-            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant).toBlocking().value()
+            OAuth2AccessToken newToken = tokenManager.grantNewAccessToken(grant).blockingGet()
 
         then: "The access token should have the NO expiration date"
             newToken.expirationDate == null
@@ -104,7 +104,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenSpecs extends Specification {
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
 
         when: "I ask for a new access token"
-            tokenManager.grantNewAccessToken(grant).toBlocking().value()
+            tokenManager.grantNewAccessToken(grant).blockingGet()
 
         then: "The storage is asked to save the token"
             1 * storage.storeAccessToken(accessToken)
@@ -170,7 +170,7 @@ class OAuth2AccessTokenManagerGetValidAccessTokenSpecs extends Specification {
             OAuth2AccessTokenManager tokenManager = new OAuth2AccessTokenManager<OAuth2AccessToken>(storage)
 
         when: "I ask for a valid access token"
-            OAuth2AccessToken validToken = tokenManager.getValidAccessToken(grant).toBlocking().value()
+            OAuth2AccessToken validToken = tokenManager.getValidAccessToken(grant).blockingGet()
 
         then: "The I receive the non-expired token"
             validToken == accessToken
