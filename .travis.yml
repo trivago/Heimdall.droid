@@ -12,7 +12,6 @@ android:
   components:
     - tools
     - platform-tools
-    - tools
     - extra-android-m2repository
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
