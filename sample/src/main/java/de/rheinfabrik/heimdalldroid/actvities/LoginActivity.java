@@ -1,24 +1,23 @@
 package de.rheinfabrik.heimdalldroid.actvities;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import butterknife.BindView;
 
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import de.rheinfabrik.heimdalldroid.R;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvAuthorizationCodeGrant;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManager;
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Activity used to let the user login with his GitHub credentials.
@@ -29,7 +28,7 @@ public class LoginActivity extends RxAppCompatActivity {
 
     // Members
 
-    @InjectView(R.id.webView)
+    @BindView(R.id.webView)
     protected WebView mWebView;
 
     // Activity lifecycle
@@ -42,7 +41,7 @@ public class LoginActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Inject views
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // Start authorization
         authorize();

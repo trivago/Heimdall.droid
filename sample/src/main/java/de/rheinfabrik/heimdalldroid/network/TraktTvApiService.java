@@ -1,8 +1,9 @@
 package de.rheinfabrik.heimdalldroid.network;
 
+import io.reactivex.Observable;
 import java.util.List;
 
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
 import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
@@ -11,7 +12,6 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
-import rx.Observable;
 
 /**
  * Interface for communicating to the TraktTv API (http://docs.trakt.apiary.io/#).

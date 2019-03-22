@@ -1,6 +1,7 @@
-package de.rheinfabrik.heimdall;
+package de.rheinfabrik.heimdall2;
 
-import rx.Single;
+
+import io.reactivex.Single;
 
 /**
  * Interface used to define how to store and retrieve a stored access token.

@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall
+package de.rheinfabrik.heimdall2
 
 import com.google.gson.Gson
 import spock.lang.Specification

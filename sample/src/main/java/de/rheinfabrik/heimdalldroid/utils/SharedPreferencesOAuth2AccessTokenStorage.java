@@ -4,9 +4,9 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
-import de.rheinfabrik.heimdall.OAuth2AccessTokenStorage;
-import rx.Single;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.OAuth2AccessTokenStorage;
+import io.reactivex.Single;
 
 /**
  * A simple storage that saves the access token as plain text in the passed shared preferences.

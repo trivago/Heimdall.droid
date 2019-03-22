@@ -1,18 +1,16 @@
-package de.rheinfabrik.heimdall.grants;
+package de.rheinfabrik.heimdall2.grants;
 
-import java.io.UnsupportedEncodingException;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.PublishSubject;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
-import rx.Observable;
-import rx.Single;
-import rx.subjects.BehaviorSubject;
-import rx.subjects.PublishSubject;
 
 /**
  * Class representing the Authorization Code Grant as described in https://tools.ietf.org/html/rfc6749#section-4.1.
@@ -71,7 +69,7 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
      * Observable emitting the authorization Uri.
      */
     public final Observable<URL> authorizationUri() {
-        return mAuthorizationUrlSubject.asObservable();
+        return mAuthorizationUrlSubject;
     }
 
     /**
@@ -114,7 +112,7 @@ public abstract class OAuth2AuthorizationCodeGrant<TAccessToken extends OAuth2Ac
                 .take(1)
                 .retry()
                 .concatMap(this::exchangeTokenUsingCode)
-                .toSingle();
+                .singleOrError();
     }
 
     // Private

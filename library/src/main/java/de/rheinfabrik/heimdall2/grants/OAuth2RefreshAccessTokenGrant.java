@@ -1,6 +1,6 @@
-package de.rheinfabrik.heimdall.grants;
+package de.rheinfabrik.heimdall2.grants;
 
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
 
 /**
  * Class representing the Refreshing Access Token Grant as described in https://tools.ietf.org/html/rfc6749#section-6.

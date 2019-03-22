@@ -1,12 +1,7 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'me.tatarka.retrolambda'
 
 buildscript {
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-    }
-
     repositories {
         mavenCentral()
     }
@@ -24,15 +19,15 @@ repositories {
 dependencies {
 
     // Rx
-    compile 'io.reactivex:rxjava:1.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
 
     // GSON
-    compile 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     // Testing
-    testCompile "cglib:cglib:2.2"
-    testCompile 'junit:junit:4.12'
-    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+    testImplementation "cglib:cglib:2.2"
+    testImplementation 'junit:junit:4.12'
+    testImplementation('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude group: 'junit'
     }
 }

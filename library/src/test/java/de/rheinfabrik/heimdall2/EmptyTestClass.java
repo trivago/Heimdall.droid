@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall;
+package de.rheinfabrik.heimdall2;
 
 public class EmptyTestClass {
     // This is an empty class. It exists only because the gradle compileTestGroovy

@@ -1,12 +1,9 @@
-package de.rheinfabrik.heimdall;
+package de.rheinfabrik.heimdall2;
 
+import de.rheinfabrik.heimdall2.grants.OAuth2Grant;
+import de.rheinfabrik.heimdall2.grants.OAuth2RefreshAccessTokenGrant;
+import io.reactivex.Single;
 import java.util.Calendar;
-
-import de.rheinfabrik.heimdall.grants.OAuth2Grant;
-import de.rheinfabrik.heimdall.grants.OAuth2RefreshAccessTokenGrant;
-import rx.Single;
-
-import static rx.Single.error;
 
 /**
  * The all-seeing and all-hearing guardian sentry of your application who
@@ -78,7 +75,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
                         accessToken.expirationDate = expirationDate;
                     }
                     mStorage.storeAccessToken(accessToken);
-                }).toObservable().cache().toSingle();
+                }).cache();
     }
 
     /**
@@ -97,7 +94,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
         return mStorage.getStoredAccessToken()
                 .flatMap(accessToken -> {
                     if (accessToken == null) {
-                        return error(new IllegalStateException("No access token found."));
+                        return Single.error(new IllegalStateException("No access token found."));
                     } else if (accessToken.isExpired()) {
                         refreshAccessTokenGrant.refreshToken = accessToken.refreshToken;
 

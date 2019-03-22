@@ -1,7 +1,6 @@
-package de.rheinfabrik.heimdall;
+package de.rheinfabrik.heimdall2;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.Calendar;
 

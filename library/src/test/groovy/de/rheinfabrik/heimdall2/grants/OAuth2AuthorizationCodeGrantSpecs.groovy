@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall.grants
+package de.rheinfabrik.heimdall2.grants
 
 import spock.lang.Specification
 import spock.lang.Title

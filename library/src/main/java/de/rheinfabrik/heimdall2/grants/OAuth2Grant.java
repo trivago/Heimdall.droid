@@ -1,7 +1,7 @@
-package de.rheinfabrik.heimdall.grants;
+package de.rheinfabrik.heimdall2.grants;
 
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
-import rx.Single;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
+import io.reactivex.Single;
 
 /**
  * Interface describing an OAuth2 Grant as described in https://tools.ietf.org/html/rfc6749#page-23.

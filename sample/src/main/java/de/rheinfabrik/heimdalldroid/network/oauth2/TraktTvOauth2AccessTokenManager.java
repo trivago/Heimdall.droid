@@ -3,14 +3,14 @@ package de.rheinfabrik.heimdalldroid.network.oauth2;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import de.rheinfabrik.heimdall.OAuth2AccessToken;
-import de.rheinfabrik.heimdall.OAuth2AccessTokenManager;
-import de.rheinfabrik.heimdall.OAuth2AccessTokenStorage;
+import de.rheinfabrik.heimdall2.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.OAuth2AccessTokenManager;
+import de.rheinfabrik.heimdall2.OAuth2AccessTokenStorage;
 import de.rheinfabrik.heimdalldroid.TraktTvAPIConfiguration;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
 import de.rheinfabrik.heimdalldroid.utils.SharedPreferencesOAuth2AccessTokenStorage;
-import rx.Single;
+import io.reactivex.Single;
 
 /**
  * Token manger used to handle all your access token needs with the TraktTv API (http://docs.trakt.apiary.io/#).
@@ -77,7 +77,6 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
                     RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.accessToken);
                     return TraktTvApiFactory.newApiService().revokeAccessToken(body);
                 })
-                .doOnNext(x -> getStorage().removeAccessToken())
-                .toSingle();
+                .doOnNext(x -> getStorage().removeAccessToken()).singleOrError();
     }
 }
