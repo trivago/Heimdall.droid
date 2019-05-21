@@ -8,7 +8,7 @@ import de.rheinfabrik.heimdall2.OAuth2AccessToken
  * @param <TAccessToken> The access token type.
  */
 
-abstract class OAuth2ImplicitGrant<T : OAuth2AccessToken>(
+abstract class OAuth2ImplicitGrant(
     /**
      * REQUIRED
      * The client identifier as described in https://tools.ietf.org/html/rfc6749#section-2.2.
