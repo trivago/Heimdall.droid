@@ -63,7 +63,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
         grant.clientSecret = TraktTvAPIConfiguration.CLIENT_SECRET;
         grant.redirectUri = TraktTvAPIConfiguration.REDIRECT_URI;
 
-        return super.getValidAccessToken(grant).map(token -> token.tokenType + " " + token.accessToken);
+        return super.getValidAccessToken(grant).map(token -> token.getTokenType() + " " + token.getAccessToken());
     }
 
     /**
@@ -74,7 +74,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
                 .toObservable()
                 .filter(token -> token != null)
                 .concatMap(accessToken -> {
-                    RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.accessToken);
+                    RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.getAccessToken());
                     return TraktTvApiFactory.newApiService().revokeAccessToken(body);
                 })
                 .doOnNext(x -> getStorage().removeAccessToken()).singleOrError();
