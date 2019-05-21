@@ -37,7 +37,7 @@ abstract class OAuth2ImplicitGrant<T : OAuth2AccessToken>(
      */
     var state: String? = null
 
-) : OAuth2Grant<T> {
+) : OAuth2Grant {
 
     // Constants
 

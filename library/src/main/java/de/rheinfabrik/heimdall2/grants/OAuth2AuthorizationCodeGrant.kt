@@ -13,7 +13,7 @@ import java.net.URLDecoder
  *
  * @param <TAccessToken> The access token type.
  */
-abstract class OAuth2AuthorizationCodeGrant<T : OAuth2AccessToken>(
+abstract class OAuth2AuthorizationCodeGrant(
     /**
      * REQUIRED
      * The client identifier as described in https://tools.ietf.org/html/rfc6749#section-2.2.
@@ -41,7 +41,7 @@ abstract class OAuth2AuthorizationCodeGrant<T : OAuth2AccessToken>(
      * cross-site request forgery as described in https://tools.ietf.org/html/rfc6749#section-10.12.
      */
     var state: String? = null
-) : OAuth2Grant<T> {
+) : OAuth2Grant {
 
     // Constants
     companion object {
@@ -70,7 +70,7 @@ abstract class OAuth2AuthorizationCodeGrant<T : OAuth2AccessToken>(
     /**
      * Called when the grant was able to grab the code and it wants to exchange for an access token.
      */
-    abstract fun exchangeTokenUsingCode(code: String): Observable<T>
+    abstract fun exchangeTokenUsingCode(code: String): Observable<OAuth2AccessToken>
 
     // Public API
 
@@ -79,7 +79,7 @@ abstract class OAuth2AuthorizationCodeGrant<T : OAuth2AccessToken>(
      */
     fun authorizationUri() = mAuthorizationUrlSubject
 
-    override fun grantNewAccessToken(): Single<T> {
+    override fun grantNewAccessToken(): Single<OAuth2AccessToken> {
         mAuthorizationUrlSubject.onNext(buildAuthorizationUrl())
 
         return onUrlLoadedCommand.map {

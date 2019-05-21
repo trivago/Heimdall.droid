@@ -1,15 +1,13 @@
 package de.rheinfabrik.heimdall2.grants
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken
-
-abstract class OAuth2ClientCredentialsGrant<T : OAuth2AccessToken>(
+abstract class OAuth2ClientCredentialsGrant(
     /**
      * OPTIONAL
      * The scope of the access request as described in https://tools.ietf.org/html/rfc6749#section-3.3.
      */
     val scope: String? = null
 ) :
-    OAuth2Grant<T> {
+    OAuth2Grant {
 
     // Constants
 

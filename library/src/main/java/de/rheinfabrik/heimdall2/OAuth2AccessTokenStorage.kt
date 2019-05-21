@@ -7,7 +7,7 @@ import io.reactivex.Single
  *
  * @param <TAccessToken> The access token type.
  */
-interface OAuth2AccessTokenStorage<T : OAuth2AccessToken> {
+interface OAuth2AccessTokenStorage {
     // Public API
 
     /**
@@ -15,14 +15,14 @@ interface OAuth2AccessTokenStorage<T : OAuth2AccessToken> {
      *
      * @return - An Observable emitting the stored access token.
      */
-    fun getStoredAccessToken(): Single<T>
+    fun getStoredAccessToken(): Single<OAuth2AccessToken>
 
     /**
      * Stores the given access token.
      *
      * @param token The access token which will be stored.
      */
-    fun storeAccessToken(token: T)
+    fun storeAccessToken(token: OAuth2AccessToken)
 
     /**
      * Checks whether there is or is not an access token

@@ -15,7 +15,7 @@ import io.reactivex.Single;
 /**
  * Token manger used to handle all your access token needs with the TraktTv API (http://docs.trakt.apiary.io/#).
  */
-public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenManager<OAuth2AccessToken> {
+public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenManager {
 
     // Factory methods
 
@@ -36,7 +36,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
 
     // Constructor
 
-    public TraktTvOauth2AccessTokenManager(OAuth2AccessTokenStorage<OAuth2AccessToken> storage) {
+    public TraktTvOauth2AccessTokenManager(OAuth2AccessTokenStorage storage) {
         super(storage);
     }
 
