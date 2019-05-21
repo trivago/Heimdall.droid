@@ -1,15 +1,13 @@
-package de.rheinfabrik.heimdall2;
+package de.rheinfabrik.heimdall2
 
-
-import io.reactivex.Single;
+import io.reactivex.Single
 
 /**
  * Interface used to define how to store and retrieve a stored access token.
  *
  * @param <TAccessToken> The access token type.
  */
-public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> {
-
+interface OAuth2AccessTokenStorage<T : OAuth2AccessToken> {
     // Public API
 
     /**
@@ -17,14 +15,14 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      *
      * @return - An Observable emitting the stored access token.
      */
-    Single<TAccessToken> getStoredAccessToken();
+    fun getStoredAccessToken(): Single<T>
 
     /**
      * Stores the given access token.
      *
      * @param token The access token which will be stored.
      */
-    void storeAccessToken(TAccessToken token);
+    fun storeAccessToken(token: T)
 
     /**
      * Checks whether there is or is not an access token
@@ -32,10 +30,10 @@ public interface OAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken
      * @return - An Observable emitting true or false based on whether there is or is not an
      * access token.
      */
-    Single<Boolean> hasAccessToken();
+    fun hasAccessToken(): Single<Boolean>
 
     /**
      * Removes the stored access token.
      */
-    void removeAccessToken();
+    fun removeAccessToken()
 }
