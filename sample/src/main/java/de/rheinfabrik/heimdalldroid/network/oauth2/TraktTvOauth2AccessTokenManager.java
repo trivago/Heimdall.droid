@@ -47,9 +47,9 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
      */
     public TraktTvAuthorizationCodeGrant newAuthorizationCodeGrant() {
         TraktTvAuthorizationCodeGrant grant = new TraktTvAuthorizationCodeGrant();
-        grant.clientId = TraktTvAPIConfiguration.CLIENT_ID;
+        grant.setClientId(TraktTvAPIConfiguration.CLIENT_ID);
         grant.clientSecret = TraktTvAPIConfiguration.CLIENT_SECRET;
-        grant.redirectUri = TraktTvAPIConfiguration.REDIRECT_URI;
+        grant.setRedirectUri(TraktTvAPIConfiguration.REDIRECT_URI);
 
         return grant;
     }
