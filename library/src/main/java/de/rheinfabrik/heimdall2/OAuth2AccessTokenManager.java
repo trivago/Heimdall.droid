@@ -69,10 +69,10 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
 
         return grant.grantNewAccessToken()
                 .doOnSuccess(accessToken -> {
-                    if (accessToken.expiresIn != null) {
+                    if (accessToken.getExpiresIn() != null) {
                         Calendar expirationDate = (Calendar) calendar.clone();
-                        expirationDate.add(Calendar.SECOND, accessToken.expiresIn);
-                        accessToken.expirationDate = expirationDate;
+                        expirationDate.add(Calendar.SECOND, accessToken.getExpiresIn());
+                        accessToken.setExpirationDate(expirationDate);
                     }
                     mStorage.storeAccessToken(accessToken);
                 }).cache();
@@ -96,7 +96,7 @@ public class OAuth2AccessTokenManager<TAccessToken extends OAuth2AccessToken> {
                     if (accessToken == null) {
                         return Single.error(new IllegalStateException("No access token found."));
                     } else if (accessToken.isExpired()) {
-                        refreshAccessTokenGrant.refreshToken = accessToken.refreshToken;
+                        refreshAccessTokenGrant.setRefreshToken(accessToken.getRefreshToken());
 
                         return grantNewAccessToken(refreshAccessTokenGrant);
                     } else {
