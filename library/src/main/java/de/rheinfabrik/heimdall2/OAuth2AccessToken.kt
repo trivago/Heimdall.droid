@@ -59,15 +59,15 @@ class OAuth2AccessToken(
             Calendar.getInstance().after(expirationDate)
 
 
-    override fun equals(other: Any?): Boolean {
-        return when {
+    override fun equals(other: Any?): Boolean =
+        when {
             this === other -> true
             other !is OAuth2AccessToken -> false
             else -> {
                 accessToken.equals(other.accessToken) && tokenType.equals(other.accessToken)
             }
         }
-    }
+
 
     override fun hashCode(): Int =
         tokenType.hashCode().let {
