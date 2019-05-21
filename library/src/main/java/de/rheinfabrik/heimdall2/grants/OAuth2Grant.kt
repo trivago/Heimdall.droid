@@ -8,7 +8,7 @@ import io.reactivex.Single
  *
  * @param <TAccessToken> The access token type.
  */
-interface OAuth2Grant<TAccessToken : OAuth2AccessToken> {
+interface OAuth2Grant<T : OAuth2AccessToken> {
 
     // Abstract Api
 
@@ -17,5 +17,5 @@ interface OAuth2Grant<TAccessToken : OAuth2AccessToken> {
      *
      * @return - An Observable emitting the granted access token.
      */
-    fun grantNewAccessToken(): Single<TAccessToken>
+    fun grantNewAccessToken(): Single<T>
 }

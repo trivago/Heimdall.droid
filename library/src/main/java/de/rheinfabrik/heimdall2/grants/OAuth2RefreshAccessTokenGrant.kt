@@ -2,7 +2,7 @@ package de.rheinfabrik.heimdall2.grants
 
 import de.rheinfabrik.heimdall2.OAuth2AccessToken
 
-abstract class OAuth2RefreshAccessTokenGrant<TAccessToken : OAuth2AccessToken>(
+abstract class OAuth2RefreshAccessTokenGrant<T : OAuth2AccessToken>(
     /**
      * REQUIRED
      * The "refresh_token" issued to the client.
@@ -15,7 +15,7 @@ abstract class OAuth2RefreshAccessTokenGrant<TAccessToken : OAuth2AccessToken>(
      */
     var scope: String? = null
 ) :
-    OAuth2Grant<TAccessToken> {
+    OAuth2Grant<T> {
     // Constants
 
     /**
