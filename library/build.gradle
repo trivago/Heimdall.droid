@@ -1,9 +1,16 @@
+apply plugin: 'kotlin'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
 buildscript {
+    ext.kotlin_version = '1.3.31'
+
     repositories {
         mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -17,6 +24,8 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // Rx
     implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
@@ -29,5 +38,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude group: 'junit'
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
