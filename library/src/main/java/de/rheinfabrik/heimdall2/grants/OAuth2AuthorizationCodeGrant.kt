@@ -18,19 +18,19 @@ abstract class OAuth2AuthorizationCodeGrant<TAccessToken : OAuth2AccessToken>(
      * REQUIRED
      * The client identifier as described in https://tools.ietf.org/html/rfc6749#section-2.2.
      */
-    val clientId: String = "",
+    var clientId: String = "",
 
     /**
      * OPTIONAL
      * As described in https://tools.ietf.org/html/rfc6749#section-3.1.2.
      */
-    val redirectUri: String? = null,
+    var redirectUri: String? = null,
 
     /**
      * OPTIONAL
      * The scope of the access request as described in https://tools.ietf.org/html/rfc6749#section-3.3.
      */
-    val scope: String? = null,
+    var scope: String? = null,
 
     /**
      * RECOMMENDED
@@ -40,7 +40,7 @@ abstract class OAuth2AuthorizationCodeGrant<TAccessToken : OAuth2AccessToken>(
      * to the client. The parameter SHOULD be used for preventing
      * cross-site request forgery as described in https://tools.ietf.org/html/rfc6749#section-10.12.
      */
-    val state: String? = null
+    var state: String? = null
 ) : OAuth2Grant<TAccessToken> {
 
     // Constants
