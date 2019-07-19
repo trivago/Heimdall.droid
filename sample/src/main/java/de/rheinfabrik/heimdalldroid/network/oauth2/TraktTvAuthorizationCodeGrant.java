@@ -13,7 +13,7 @@ import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
 /**
  * TraktTv authorization code grant as described in http://docs.trakt.apiary.io/#reference/authentication-oauth.
  */
-public class TraktTvAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant<OAuth2AccessToken> {
+public class TraktTvAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant {
 
     // Properties
 
