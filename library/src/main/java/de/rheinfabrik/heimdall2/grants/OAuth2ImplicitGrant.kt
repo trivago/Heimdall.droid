@@ -1,7 +1,5 @@
 package de.rheinfabrik.heimdall2.grants
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken
-
 /**
  * Class representing the Implicit Grant as described in https://tools.ietf.org/html/rfc6749#section-4.2.
  *

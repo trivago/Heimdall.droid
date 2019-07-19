@@ -1,7 +1,5 @@
 package de.rheinfabrik.heimdall2.grants
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken
-
 abstract class OAuth2RefreshAccessTokenGrant(
     /**
      * REQUIRED
