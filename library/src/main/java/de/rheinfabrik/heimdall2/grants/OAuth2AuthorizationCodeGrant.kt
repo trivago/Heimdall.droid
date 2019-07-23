@@ -97,8 +97,8 @@ abstract class OAuth2AuthorizationCodeGrant(
 
     // Private API
 
-    private fun getQueryParameters(url: URL): LinkedHashMap<String, MutableList<String?>> {
-        val queryParams = linkedMapOf<String, MutableList<String?>>()
+    private fun getQueryParameters(url: URL): LinkedHashMap<String, MutableList<String>> {
+        val queryParams = linkedMapOf<String, MutableList<String>>()
         url.query.split("&").forEach {
             val idx = it.indexOf("=")
             try {
@@ -118,7 +118,7 @@ abstract class OAuth2AuthorizationCodeGrant(
                         it.substring(idx + 1),
                         UTF_8
                     )
-                } else null
+                } else ""
 
                 queryParams[key]?.add(value)
             } catch (e: Exception) {
