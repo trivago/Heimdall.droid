@@ -49,6 +49,7 @@ abstract class OAuth2AuthorizationCodeGrant(
         val RESPONSE_TYPE = "code"
         @JvmStatic
         val GRANT_TYPE = "authorization_code"
+        private const val UTF_8 = "UTF-8"
     }
 
     // Public Members
@@ -104,7 +105,7 @@ abstract class OAuth2AuthorizationCodeGrant(
                 val key = if (idx > 0) {
                     URLDecoder.decode(
                         it.substring(0, idx),
-                        "UTF-8"
+                        UTF_8
                     )
                 } else {
                     it
@@ -115,7 +116,7 @@ abstract class OAuth2AuthorizationCodeGrant(
                 val value = if (idx > 0 && it.length > idx + 1) {
                     URLDecoder.decode(
                         it.substring(idx + 1),
-                        "UTF-8"
+                        UTF_8
                     )
                 } else null
 
