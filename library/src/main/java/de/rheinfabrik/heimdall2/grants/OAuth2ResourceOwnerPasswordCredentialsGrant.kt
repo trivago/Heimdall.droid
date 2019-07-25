@@ -21,7 +21,7 @@ abstract class OAuth2ResourceOwnerPasswordCredentialsGrant(
 ) : OAuth2Grant {
 
     companion object {
-        @JvmStatic
+        @JvmField
         val GRANT_TYPE = "password"
     }
 }

@@ -45,9 +45,9 @@ abstract class OAuth2AuthorizationCodeGrant(
 
     // Constants
     companion object {
-        @JvmStatic
+        @JvmField
         val RESPONSE_TYPE = "code"
-        @JvmStatic
+        @JvmField
         val GRANT_TYPE = "authorization_code"
         private const val UTF_8 = "UTF-8"
     }
