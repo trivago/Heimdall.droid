@@ -18,6 +18,7 @@ import de.rheinfabrik.heimdalldroid.R;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvAuthorizationCodeGrant;
 import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManager;
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
+import java.util.Calendar;
 
 /**
  * Activity used to let the user login with his GitHub credentials.
@@ -73,10 +74,10 @@ public class LoginActivity extends RxAppCompatActivity {
 
                  try {
                      URL url = new URL(urlString);
-                     grant.onUrlLoadedCommand.onNext(url);
+                     grant.getOnUrlLoadedCommand().onNext(url);
 
                      // Hide redirect page from user
-                     if (urlString.startsWith(grant.redirectUri)) {
+                     if (urlString.startsWith(grant.getRedirectUri())) {
                          mWebView.setVisibility(View.GONE);
                      }
                  } catch (MalformedURLException ignored) {
@@ -87,7 +88,7 @@ public class LoginActivity extends RxAppCompatActivity {
         });
 
         // Start authorization and listen for success
-        tokenManager.grantNewAccessToken(grant)
+        tokenManager.grantNewAccessToken(grant, Calendar.getInstance())
                 .toObservable()
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())

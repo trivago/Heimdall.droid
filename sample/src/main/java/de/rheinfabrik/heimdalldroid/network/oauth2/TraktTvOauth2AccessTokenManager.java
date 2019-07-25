@@ -15,7 +15,7 @@ import io.reactivex.Single;
 /**
  * Token manger used to handle all your access token needs with the TraktTv API (http://docs.trakt.apiary.io/#).
  */
-public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenManager<OAuth2AccessToken> {
+public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenManager {
 
     // Factory methods
 
@@ -36,7 +36,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
 
     // Constructor
 
-    public TraktTvOauth2AccessTokenManager(OAuth2AccessTokenStorage<OAuth2AccessToken> storage) {
+    public TraktTvOauth2AccessTokenManager(OAuth2AccessTokenStorage storage) {
         super(storage);
     }
 
@@ -47,9 +47,9 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
      */
     public TraktTvAuthorizationCodeGrant newAuthorizationCodeGrant() {
         TraktTvAuthorizationCodeGrant grant = new TraktTvAuthorizationCodeGrant();
-        grant.clientId = TraktTvAPIConfiguration.CLIENT_ID;
+        grant.setClientId(TraktTvAPIConfiguration.CLIENT_ID);
         grant.clientSecret = TraktTvAPIConfiguration.CLIENT_SECRET;
-        grant.redirectUri = TraktTvAPIConfiguration.REDIRECT_URI;
+        grant.setRedirectUri(TraktTvAPIConfiguration.REDIRECT_URI);
 
         return grant;
     }
@@ -63,7 +63,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
         grant.clientSecret = TraktTvAPIConfiguration.CLIENT_SECRET;
         grant.redirectUri = TraktTvAPIConfiguration.REDIRECT_URI;
 
-        return super.getValidAccessToken(grant).map(token -> token.tokenType + " " + token.accessToken);
+        return super.getValidAccessToken(grant).map(token -> token.getTokenType() + " " + token.getAccessToken());
     }
 
     /**
@@ -74,7 +74,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
                 .toObservable()
                 .filter(token -> token != null)
                 .concatMap(accessToken -> {
-                    RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.accessToken);
+                    RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.getAccessToken());
                     return TraktTvApiFactory.newApiService().revokeAccessToken(body);
                 })
                 .doOnNext(x -> getStorage().removeAccessToken()).singleOrError();
