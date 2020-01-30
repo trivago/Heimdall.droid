@@ -34,9 +34,10 @@ open class OAuth2AccessTokenManager(
                     val newExpirationDate = (calendar.clone() as Calendar).apply {
                         add(Calendar.SECOND, it)
                     }
-                    token.expirationDate = newExpirationDate
+                    mStorage.storeAccessToken(
+                        token = token.copy(expirationDate = newExpirationDate)
+                    )
                 }
-                mStorage.storeAccessToken(token)
             }.cache()
 
     /**
