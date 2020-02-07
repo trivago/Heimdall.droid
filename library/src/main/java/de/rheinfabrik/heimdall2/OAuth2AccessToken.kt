@@ -11,14 +11,14 @@ data class OAuth2AccessToken(
      * Value is case insensitive.
      */
     @SerializedName("token_type")
-    val tokenType: String? = null,
+    val tokenType: String = "",
 
     /**
      * REQUIRED
      * The access token issued by the authorization server.
      */
     @SerializedName("access_token")
-    val accessToken: String? = null,
+    val accessToken: String = "",
 
     /**
      * OPTIONAL
@@ -58,19 +58,4 @@ data class OAuth2AccessToken(
         expirationDate != null &&
             Calendar.getInstance().after(expirationDate)
 
-
-    override fun equals(other: Any?): Boolean =
-        when {
-            this === other -> true
-            other !is OAuth2AccessToken -> false
-            else -> {
-                accessToken.equals(other.accessToken) && tokenType.equals(other.accessToken)
-            }
-        }
-
-
-    override fun hashCode(): Int =
-        tokenType.hashCode().let {
-            31 * it + accessToken.hashCode()
-        }
 }
