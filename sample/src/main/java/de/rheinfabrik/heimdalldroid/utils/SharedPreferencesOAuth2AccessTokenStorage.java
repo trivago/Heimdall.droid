@@ -14,7 +14,7 @@ import io.reactivex.Single;
  *
  * @param <TAccessToken> The access token type.
  */
-public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> implements OAuth2AccessTokenStorage<TAccessToken> {
+public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAuth2AccessToken> implements OAuth2AccessTokenStorage {
 
     // Constants
 
@@ -50,19 +50,18 @@ public class SharedPreferencesOAuth2AccessTokenStorage<TAccessToken extends OAut
 
     // OAuth2AccessTokenStorage
 
-    @SuppressWarnings("unchecked")
     @Override
-    public Single<TAccessToken> getStoredAccessToken() {
+    public Single<OAuth2AccessToken> getStoredAccessToken() {
         return Single
                 .just(mSharedPreferences.getString(ACCESS_TOKEN_PREFERENCES_KEY, null))
                 .map(json -> (TAccessToken) new Gson().fromJson(json, mTokenClass));
     }
 
     @Override
-    public void storeAccessToken(TAccessToken accessToken) {
+    public void storeAccessToken(OAuth2AccessToken token) {
         mSharedPreferences
                 .edit()
-                .putString(ACCESS_TOKEN_PREFERENCES_KEY, new Gson().toJson(accessToken))
+                .putString(ACCESS_TOKEN_PREFERENCES_KEY, new Gson().toJson(token))
                 .apply();
     }
 

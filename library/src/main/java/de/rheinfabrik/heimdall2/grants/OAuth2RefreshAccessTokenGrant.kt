@@ -21,7 +21,7 @@ abstract class OAuth2RefreshAccessTokenGrant(
      * The OAuth2 "grant_type".
      */
     companion object {
-        @JvmStatic
+        @JvmField
         val GRANT_TYPE = "refresh_token"
     }
 }

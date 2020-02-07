@@ -16,7 +16,7 @@ abstract class OAuth2ClientCredentialsGrant(
          * REQUIRED
          * The OAuth2 "grant_type".
          */
-        @JvmStatic
+        @JvmField
         val GRANT_TYPE = "client_credentials"
     }
 }

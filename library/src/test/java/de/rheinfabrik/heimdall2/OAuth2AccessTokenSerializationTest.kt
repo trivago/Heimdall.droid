@@ -28,10 +28,14 @@ class OAuth2AccessTokenSerializationTest {
         )
         val expirationDate = Calendar.getInstance()
         expirationDate.timeInMillis = 0
-        accessToken.expirationDate = expirationDate
+
+        // and an updated expiration date
+        val changedAccessToken = accessToken.copy(
+            expirationDate = expirationDate
+        )
 
         // when it gets serialized with Gson
-        val json = Gson().toJson(accessToken)
+        val json = Gson().toJson(changedAccessToken)
 
         // then the json should be written correctly
         assertEquals(

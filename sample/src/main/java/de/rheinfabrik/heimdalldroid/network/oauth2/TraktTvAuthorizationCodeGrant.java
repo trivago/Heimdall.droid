@@ -29,7 +29,7 @@ public class TraktTvAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant 
                             .buildUpon()
                             .appendQueryParameter("client_id", getClientId())
                             .appendQueryParameter("redirect_uri", getRedirectUri())
-                            .appendQueryParameter("response_type", OAuth2AuthorizationCodeGrant.getRESPONSE_TYPE())
+                            .appendQueryParameter("response_type", OAuth2AuthorizationCodeGrant.RESPONSE_TYPE)
                             .build()
                             .toString()
             );
@@ -41,7 +41,7 @@ public class TraktTvAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant 
     @Override
     public Observable<OAuth2AccessToken> exchangeTokenUsingCode(String code) {
         AccessTokenRequestBody body = new AccessTokenRequestBody(
-                code, getClientId(), getRedirectUri(), clientSecret, getGRANT_TYPE()
+                code, getClientId(), getRedirectUri(), clientSecret, GRANT_TYPE
         );
         return TraktTvApiFactory.newApiService().grantNewAccessToken(body);
     }

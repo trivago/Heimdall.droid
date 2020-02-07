@@ -17,11 +17,14 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenTest {
         val accessToken = OAuth2AccessToken(
             expirationDate = null
         )
-        accessToken.expiresIn = 3
+        val changedAccessToken = accessToken.copy(
+            expiresIn = 3
+        )
+
 
         // and a grant that emits that token
         val grant = mock<OAuth2Grant>().apply {
-            whenever(grantNewAccessToken()).thenReturn(Single.just(accessToken))
+            whenever(grantNewAccessToken()).thenReturn(Single.just(changedAccessToken))
         }
 
         // and a tokenManager
@@ -49,11 +52,13 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenTest {
         val accessToken = OAuth2AccessToken(
             expirationDate = null
         )
-        accessToken.expiresIn = null
+        val changedAccessToken = accessToken.copy(
+            expiresIn = null
+        )
 
         // and a grant that emits that token
         val grant = mock<OAuth2Grant>().apply {
-            whenever(grantNewAccessToken()).thenReturn(Single.just(accessToken))
+            whenever(grantNewAccessToken()).thenReturn(Single.just(changedAccessToken))
         }
 
         // and a tokenManager

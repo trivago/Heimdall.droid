@@ -9,7 +9,7 @@ import io.reactivex.Single;
 /**
  * TraktTv refresh token grant as described in http://docs.trakt.apiary.io/#reference/authentication-oauth/token/exchange-refresh_token-for-access_token.
  */
-public class TraktTvRefreshAccessTokenGrant extends OAuth2RefreshAccessTokenGrant<OAuth2AccessToken> {
+public class TraktTvRefreshAccessTokenGrant extends OAuth2RefreshAccessTokenGrant {
 
     // Properties
 
@@ -21,7 +21,7 @@ public class TraktTvRefreshAccessTokenGrant extends OAuth2RefreshAccessTokenGran
 
     @Override
     public Single<OAuth2AccessToken> grantNewAccessToken() {
-        RefreshTokenRequestBody body = new RefreshTokenRequestBody(getRefreshToken(), clientId, clientSecret, redirectUri, getGRANT_TYPE());
+        RefreshTokenRequestBody body = new RefreshTokenRequestBody(getRefreshToken(), clientId, clientSecret, redirectUri, GRANT_TYPE);
         return TraktTvApiFactory.newApiService().refreshAccessToken(body).singleOrError();
     }
 }

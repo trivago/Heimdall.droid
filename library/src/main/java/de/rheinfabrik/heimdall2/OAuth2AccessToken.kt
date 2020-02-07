@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.Calendar
 
-class OAuth2AccessToken(
+data class OAuth2AccessToken(
     /**
      * REQUIRED
      * The type of the token issued as described in https://tools.ietf.org/html/rfc6749#section-7.1.
      * Value is case insensitive.
      */
     @SerializedName("token_type")
-    var tokenType: String? = null,
+    val tokenType: String = "",
 
     /**
      * REQUIRED
      * The access token issued by the authorization server.
      */
     @SerializedName("access_token")
-    var accessToken: String? = null,
+    val accessToken: String = "",
 
     /**
      * OPTIONAL
@@ -27,7 +27,7 @@ class OAuth2AccessToken(
      * in https://tools.ietf.org/html/rfc6749#section-6.
      */
     @SerializedName("refresh_token")
-    var refreshToken: String? = null,
+    val refreshToken: String? = null,
 
     /**
      * RECOMMENDED
@@ -38,13 +38,13 @@ class OAuth2AccessToken(
      * expiration time via other means or document the default value.
      */
     @SerializedName("expires_in")
-    var expiresIn: Int? = null,
+    val expiresIn: Int? = null,
 
     /**
      * The expiration date used by Heimdall.
      */
     @SerializedName("heimdall_expiration_date")
-    var expirationDate: Calendar? = null
+    val expirationDate: Calendar? = null
 ) : Serializable {
 
     // Public API
@@ -58,19 +58,4 @@ class OAuth2AccessToken(
         expirationDate != null &&
             Calendar.getInstance().after(expirationDate)
 
-
-    override fun equals(other: Any?): Boolean =
-        when {
-            this === other -> true
-            other !is OAuth2AccessToken -> false
-            else -> {
-                accessToken.equals(other.accessToken) && tokenType.equals(other.accessToken)
-            }
-        }
-
-
-    override fun hashCode(): Int =
-        tokenType.hashCode().let {
-            31 * it + accessToken.hashCode()
-        }
 }
