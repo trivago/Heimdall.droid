@@ -29,16 +29,23 @@ open class OAuth2AccessTokenManager(
         calendar: Calendar = Calendar.getInstance()
     ): Single<OAuth2AccessToken> =
         grant.grantNewAccessToken()
-            .doOnSuccess { token ->
-                token.expiresIn?.let {
+            .map {
+                val token = if (it.expiresIn != null) {
                     val newExpirationDate = (calendar.clone() as Calendar).apply {
-                        add(Calendar.SECOND, it)
+                        add(Calendar.SECOND, it.expiresIn)
                     }
-                    mStorage.storeAccessToken(
-                        token = token.copy(expirationDate = newExpirationDate)
-                    )
+                    it.copy(expirationDate = newExpirationDate)
+                } else {
+                    it
                 }
-            }.cache()
+                token
+            }
+            .doOnSuccess { token ->
+                mStorage.storeAccessToken(
+                    token = token
+                )
+            }
+            .cache()
 
     /**
      * Returns an Observable emitting an unexpired access token.
