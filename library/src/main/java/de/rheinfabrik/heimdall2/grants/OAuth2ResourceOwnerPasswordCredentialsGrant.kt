@@ -5,13 +5,13 @@ abstract class OAuth2ResourceOwnerPasswordCredentialsGrant(
      * REQUIRED
      * The resource owner "username".
      */
-    var username: String? = null,
+    var username: String = "",
 
     /**
      * REQUIRED
      * The resource owner "password".
      */
-    var password: String? = null,
+    var password: String = "",
 
     /**
      * OPTIONAL
