@@ -30,7 +30,7 @@ open class OAuth2AccessTokenManager(
     ): Single<OAuth2AccessToken> =
         grant.grantNewAccessToken()
             .map {
-                val token = if (it.expiresIn != null) {
+                if (it.expiresIn != null) {
                     val newExpirationDate = (calendar.clone() as Calendar).apply {
                         add(Calendar.SECOND, it.expiresIn)
                     }
@@ -38,7 +38,6 @@ open class OAuth2AccessTokenManager(
                 } else {
                     it
                 }
-                token
             }
             .doOnSuccess { token ->
                 mStorage.storeAccessToken(
