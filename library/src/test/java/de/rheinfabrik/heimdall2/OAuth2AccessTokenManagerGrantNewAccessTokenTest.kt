@@ -23,8 +23,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenTest {
         val changedAccessToken = accessToken.copy(
             expiresIn = 3
         )
-
-
+        
         // and a grant that emits that token
         val grant = mock<OAuth2Grant>().apply {
             whenever(grantNewAccessToken()).thenReturn(Single.just(changedAccessToken))

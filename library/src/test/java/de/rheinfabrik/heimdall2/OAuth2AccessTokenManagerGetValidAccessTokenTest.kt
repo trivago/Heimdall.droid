@@ -57,7 +57,9 @@ class OAuth2AccessTokenManagerGetValidAccessTokenTest {
         val grant = mock<OAuth2RefreshAccessTokenGrant>()
 
         // when a valid token is needed
-        tokenManager.getValidAccessToken(grant).test()
+        tokenManager.getValidAccessToken(
+            refreshAccessTokenGrant = grant
+        ).test()
 
         // then a refresh grant asks for a new token
         verify(grant).grantNewAccessToken()
@@ -88,7 +90,9 @@ class OAuth2AccessTokenManagerGetValidAccessTokenTest {
         }
 
         // when a valid access token is needed
-        val grantToken = tokenManager.getValidAccessToken(grant).test()
+        val grantToken = tokenManager.getValidAccessToken(
+            refreshAccessTokenGrant = grant
+        ).test()
 
         // then the grants new refreshToken gets updated
         grantToken.assertValue{

@@ -24,10 +24,14 @@ class OAuth2AccessTokenManagerTest {
         whenever(refreshAccessTokenGrant.grantNewAccessToken()).thenReturn(Single.just(validToken))
 
         // and a token manager
-        val tokenManager = OAuth2AccessTokenManager(accessTokenStorage)
+        val tokenManager = OAuth2AccessTokenManager(
+            mStorage = accessTokenStorage
+        )
 
         // when the token is accessed
-        val getValidAccessTokenTest = tokenManager.getValidAccessToken(refreshAccessTokenGrant).test()
+        val getValidAccessTokenTest = tokenManager.getValidAccessToken(
+            refreshAccessTokenGrant = refreshAccessTokenGrant
+        ).test()
 
         // then the token is received
         getValidAccessTokenTest.assertValue(validToken)
