@@ -1,5 +1,6 @@
 package de.rheinfabrik.heimdall2.grants
 
+import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2AuthorizationCodeGrant
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

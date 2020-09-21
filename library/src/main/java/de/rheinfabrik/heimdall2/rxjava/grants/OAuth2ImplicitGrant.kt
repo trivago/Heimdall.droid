@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2.grants
+package de.rheinfabrik.heimdall2.rxjava.grants
 
 /**
  * Class representing the Implicit Grant as described in https://tools.ietf.org/html/rfc6749#section-4.2.

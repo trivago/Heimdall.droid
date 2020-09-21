@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.rxjava
 
 import io.reactivex.Single
 
