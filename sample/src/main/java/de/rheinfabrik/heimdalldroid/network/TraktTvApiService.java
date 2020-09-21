@@ -3,7 +3,7 @@ package de.rheinfabrik.heimdalldroid.network;
 import io.reactivex.Observable;
 import java.util.List;
 
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.model.OAuth2AccessToken;
 import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
