@@ -29,7 +29,7 @@ Now add the gradle dependency in your application's `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'com.github.rheinfabrik:Heimdall.droid:{latest_version}'
+    implementation 'com.github.rheinfabrik:Heimdall.droid:{latest_version}'
 }
 ```
 
