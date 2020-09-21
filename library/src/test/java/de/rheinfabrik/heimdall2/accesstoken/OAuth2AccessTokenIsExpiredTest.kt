@@ -1,6 +1,5 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.accesstoken
 
-import de.rheinfabrik.heimdall2.model.OAuth2AccessToken
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*

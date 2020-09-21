@@ -1,11 +1,9 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.rxjava
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import de.rheinfabrik.heimdall2.model.OAuth2AccessToken
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenManager
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenStorage
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken
 import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2Grant
 import io.reactivex.Single
 import org.junit.Test
@@ -23,7 +21,7 @@ class OAuth2AccessTokenManagerGrantNewAccessTokenTest {
         val changedAccessToken = accessToken.copy(
             expiresIn = 3
         )
-        
+
         // and a grant that emits that token
         val grant = mock<OAuth2Grant>().apply {
             whenever(grantNewAccessToken()).thenReturn(Single.just(changedAccessToken))

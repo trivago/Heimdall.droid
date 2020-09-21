@@ -1,7 +1,6 @@
 package de.rheinfabrik.heimdall2.coroutines.grants
 
-import de.rheinfabrik.heimdall2.model.OAuth2AccessToken
-import io.reactivex.Single
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken
 
 /**
  * Interface describing an OAuth2 Grant as described in https://tools.ietf.org/html/rfc6749#page-23.
