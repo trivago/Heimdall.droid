@@ -44,7 +44,6 @@ abstract class OAuth2ImplicitGrant(
      * The "response_type" which MUST be "token".
      */
     companion object {
-        @JvmField
-        val RESPONSE_TYPE = "token"
+        const val RESPONSE_TYPE = "token"
     }
 }
