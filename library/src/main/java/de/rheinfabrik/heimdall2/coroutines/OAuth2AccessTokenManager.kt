@@ -45,7 +45,7 @@ open class OAuth2AccessTokenManager(
     }
 
     /**
-     * Returns an Observable emitting an unexpired access token.
+     * Returns an unexpired access token.
      * NOTE: In order to work, Heimdall needs an access token which has a refresh_token and an
      * expires_in field.
      *
