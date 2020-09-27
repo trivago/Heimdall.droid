@@ -22,6 +22,6 @@ public class TraktTvRefreshAccessTokenGrant extends OAuth2RefreshAccessTokenGran
     @Override
     public Single<OAuth2AccessToken> grantNewAccessToken() {
         RefreshTokenRequestBody body = new RefreshTokenRequestBody(getRefreshToken(), clientId, clientSecret, redirectUri, GRANT_TYPE);
-        return TraktTvApiFactory.newApiService().refreshAccessToken(body).singleOrError();
+        return TraktTvApiFactory.newApiServiceRxJava().refreshAccessToken(body).singleOrError();
     }
 }

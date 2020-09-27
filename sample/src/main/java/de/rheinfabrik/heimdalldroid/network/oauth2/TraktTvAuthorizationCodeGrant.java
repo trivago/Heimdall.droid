@@ -43,6 +43,6 @@ public class TraktTvAuthorizationCodeGrant extends OAuth2AuthorizationCodeGrant 
         AccessTokenRequestBody body = new AccessTokenRequestBody(
                 code, getClientId(), getRedirectUri(), clientSecret, GRANT_TYPE
         );
-        return TraktTvApiFactory.newApiService().grantNewAccessToken(body);
+        return TraktTvApiFactory.newApiServiceRxJava().grantNewAccessToken(body);
     }
 }

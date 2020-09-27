@@ -75,7 +75,7 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
                 .filter(token -> token != null)
                 .concatMap(accessToken -> {
                     RevokeAccessTokenBody body = new RevokeAccessTokenBody(accessToken.getAccessToken());
-                    return TraktTvApiFactory.newApiService().revokeAccessToken(body);
+                    return TraktTvApiFactory.newApiServiceRxJava().revokeAccessToken(body);
                 })
                 .doOnNext(x -> getStorage().removeAccessToken()).singleOrError();
     }
