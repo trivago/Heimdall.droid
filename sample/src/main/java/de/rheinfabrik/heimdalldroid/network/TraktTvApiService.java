@@ -8,10 +8,10 @@ import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
 import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;
 import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.POST;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 
 /**
  * Interface for communicating to the TraktTv API (http://docs.trakt.apiary.io/#).
