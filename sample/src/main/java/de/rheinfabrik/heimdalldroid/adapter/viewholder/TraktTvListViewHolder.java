@@ -4,8 +4,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.ButterKnife;
-import butterknife.BindView;
 import de.rheinfabrik.heimdalldroid.R;
 import de.rheinfabrik.heimdalldroid.network.models.TraktTvList;
 
@@ -16,22 +14,19 @@ public class TraktTvListViewHolder extends RecyclerView.ViewHolder {
 
     // Members
 
-    @BindView(R.id.titleTextView)
-    protected TextView mTitleTextView;
+    private TextView mTitleTextView;
 
-    @BindView(R.id.descriptionTextView)
-    protected TextView mDescriptionTextView;
+    private TextView mDescriptionTextView;
 
-    @BindView(R.id.likeCountTextView)
-    protected TextView mLikeCountTextView;
+    private TextView mLikeCountTextView;
 
     // Constructor
 
     public TraktTvListViewHolder(View itemView) {
         super(itemView);
-
-        // Inject views
-        ButterKnife.bind(this, itemView);
+        mTitleTextView = itemView.findViewById(R.id.titleTextView);
+        mDescriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+        mLikeCountTextView = itemView.findViewById(R.id.likeCountTextView);
     }
 
     // Public Api
