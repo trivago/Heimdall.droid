@@ -36,6 +36,7 @@ dependencies {
     // Testing
     testImplementation 'junit:junit:4.13'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation "org.mockito:mockito-inline:3.5.11"
 }
 
 compileKotlin {
