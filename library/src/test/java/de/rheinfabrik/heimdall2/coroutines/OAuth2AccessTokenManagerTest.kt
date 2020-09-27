@@ -19,7 +19,7 @@ class OAuth2AccessTokenManagerTest {
             // given a stored access token
             val expectedOutcome = mock<OAuth2AccessToken>()
             val accessTokenStorage = mock<OAuth2AccessTokenStorage>()
-            whenever(accessTokenStorage.getStoredAccessToken()).thenReturn(expectedOutcome)
+            whenever(accessTokenStorage.getStoredOAuth2AccessToken()).thenReturn(expectedOutcome)
 
             // and a refresh access token grant
             val refreshAccessTokenGrant = mock<OAuth2RefreshAccessTokenGrant>()
@@ -47,7 +47,7 @@ class OAuth2AccessTokenManagerTest {
                 whenever(isExpired()).thenReturn(true)
             }
             val accessTokenStorage = mock<OAuth2AccessTokenStorage>()
-            whenever(accessTokenStorage.getStoredAccessToken()).thenReturn(expiredToken)
+            whenever(accessTokenStorage.getStoredOAuth2AccessToken()).thenReturn(expiredToken)
 
             // and a refresh access token grant
             val expectedOutcome = OAuth2AccessToken(

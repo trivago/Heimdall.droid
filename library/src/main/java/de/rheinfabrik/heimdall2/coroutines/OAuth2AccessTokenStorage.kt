@@ -16,24 +16,24 @@ interface OAuth2AccessTokenStorage {
      *
      * @return - An stored access token.
      */
-    suspend fun getStoredAccessToken(): OAuth2AccessToken
+    suspend fun getStoredOAuth2AccessToken(): OAuth2AccessToken
 
     /**
      * Stores the given access token.
      *
      * @param token The access token which will be stored.
      */
-    suspend fun storeAccessToken(token: OAuth2AccessToken)
+    suspend fun storeOAuth2AccessToken(token: OAuth2AccessToken)
 
     /**
      * Checks whether there is or is not an access token
      *
      * @return - An Boolean based on whether there is or is not an access token.
      */
-    suspend fun hasAccessToken(): Boolean
+    suspend fun hasOAuth2AccessToken(): Boolean
 
     /**
      * Removes the stored access token.
      */
-    suspend fun removeAccessToken()
+    suspend fun removeOAuth2AccessToken()
 }
