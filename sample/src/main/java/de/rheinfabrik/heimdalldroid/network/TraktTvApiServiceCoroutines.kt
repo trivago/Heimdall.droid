@@ -12,15 +12,15 @@ import retrofit2.http.POST
 
 interface TraktTvApiServiceCoroutines {
 
-    @POST("/oauth/token")
+    @POST(value = "/oauth/token")
     suspend fun grantNewAccessToken(@Body body: AccessTokenRequestBody): OAuth2AccessToken
 
-    @POST("/oauth/token")
+    @POST(value = "/oauth/token")
     suspend fun refreshAccessToken(@Body body: RefreshTokenRequestBody): OAuth2AccessToken
 
-    @POST("/oauth/revoke")
+    @POST(value = "/oauth/revoke")
     suspend fun revokeAccessToken(@Body body: RevokeAccessTokenBody)
 
-    @GET("/users/me/lists")
+    @GET(value = "/users/me/lists")
     suspend fun getLists(@Header("Authorization") authorizationHeader: String): List<TraktTvList>
 }
