@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdalldroid.network.oauth2;
+package de.rheinfabrik.heimdalldroid.network.oauth2.rxjava;
 
 import android.net.Uri;
 

@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdalldroid.network.oauth2;
+package de.rheinfabrik.heimdalldroid.network.oauth2.rxjava;
 
 import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken;
 import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2RefreshAccessTokenGrant;

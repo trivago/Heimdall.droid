@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdalldroid.network.oauth2;
+package de.rheinfabrik.heimdalldroid.network.oauth2.rxjava;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,7 +28,10 @@ public final class TraktTvOauth2AccessTokenManager extends OAuth2AccessTokenMana
         SharedPreferences sharedPreferences = context.getSharedPreferences("TraktTvAccessTokenStorage", Context.MODE_PRIVATE);
 
         // Define the storage using the the previously defined preferences
-        SharedPreferencesOAuth2AccessTokenStorage<OAuth2AccessToken> tokenStorage = new SharedPreferencesOAuth2AccessTokenStorage<>(sharedPreferences, OAuth2AccessToken.class);
+        SharedPreferencesOAuth2AccessTokenStorage tokenStorage =
+                new SharedPreferencesOAuth2AccessTokenStorage(
+                        sharedPreferences, OAuth2AccessToken.class
+                );
 
         // Create the new TraktTvOauth2AccessTokenManager
         return new TraktTvOauth2AccessTokenManager(tokenStorage);
