@@ -13,8 +13,8 @@ import java.net.URL;
 import java.util.Calendar;
 
 import de.rheinfabrik.heimdalldroid.R;
-import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvAuthorizationCodeGrant;
-import de.rheinfabrik.heimdalldroid.network.oauth2.TraktTvOauth2AccessTokenManager;
+import de.rheinfabrik.heimdalldroid.network.oauth2.rxjava.TraktTvAuthorizationCodeGrant;
+import de.rheinfabrik.heimdalldroid.network.oauth2.rxjava.TraktTvOauth2AccessTokenManager;
 import de.rheinfabrik.heimdalldroid.utils.AlertDialogFactory;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
