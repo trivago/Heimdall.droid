@@ -26,6 +26,7 @@ import de.rheinfabrik.heimdalldroid.utils.IntentFactory;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import retrofit2.HttpException;
 
 /**
  * Activity showing either the list of the user's repositories or the login screen.
@@ -151,17 +152,16 @@ public class MainActivity extends AppCompatActivity {
     private void handleError(Throwable error) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-//        // Clear token and login if 401
-//        if (error instanceof RetrofitError) {
-//            RetrofitError retrofitError = (RetrofitError) error;
-//            if (retrofitError.getResponse().getStatus() == 401) {
-//                mTokenManager.getStorage().removeAccessToken();
-//
-//                refresh();
-//            }
-//        } else {
-//            AlertDialogFactory.errorAlertDialog(this).show();
-//        }
+        // Clear token and login if 401
+        if (error instanceof HttpException) {
+            HttpException httpError = (HttpException) error;
+            if (httpError.code() == 401) {
+                mTokenManager.getStorage().removeAccessToken();
+                refresh();
+            }
+        } else {
+            AlertDialogFactory.errorAlertDialog(this).show();
+        }
     }
 
     // Update our recycler view
