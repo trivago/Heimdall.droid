@@ -1,6 +1,6 @@
 language: android
 sudo: required
-jdk: openjdk11
+jdk: oraclejdk11
 
 env:
   global:
