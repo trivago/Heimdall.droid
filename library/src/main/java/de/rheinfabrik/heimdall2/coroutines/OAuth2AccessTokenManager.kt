@@ -38,7 +38,7 @@ open class OAuth2AccessTokenManager(
             accessToken
         }
 
-        mStorage.storeAccessToken(
+        mStorage.storeOAuth2AccessToken(
             token = newAccessToken
         )
         return newAccessToken
@@ -53,7 +53,7 @@ open class OAuth2AccessTokenManager(
      * @return - An unexpired access token.
      */
     suspend fun getValidAccessToken(refreshAccessTokenGrant: OAuth2RefreshAccessTokenGrant): OAuth2AccessToken {
-        val accessToken = mStorage.getStoredAccessToken()
+        val accessToken = mStorage.getStoredOAuth2AccessToken()
 
         return if (accessToken.isExpired()) {
             refreshAccessTokenGrant.refreshToken = accessToken.refreshToken
