@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.rxjava
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever

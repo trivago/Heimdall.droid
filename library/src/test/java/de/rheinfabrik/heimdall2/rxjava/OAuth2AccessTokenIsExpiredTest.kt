@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.rxjava
 
 import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken
 import org.junit.Assert.assertEquals
