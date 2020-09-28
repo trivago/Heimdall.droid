@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken;
 import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenStorage;
 import io.reactivex.Single;
 

@@ -3,9 +3,7 @@ package de.rheinfabrik.heimdall2.rxjava
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2RefreshAccessTokenGrant
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenManager
-import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenStorage
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken
 import io.reactivex.Single
 import org.junit.Test
 

@@ -1,5 +1,6 @@
 package de.rheinfabrik.heimdall2.rxjava
 
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken
 import io.reactivex.Single
 
 /**
