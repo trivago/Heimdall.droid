@@ -1,6 +1,6 @@
 package de.rheinfabrik.heimdall2.rxjava.grants
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
