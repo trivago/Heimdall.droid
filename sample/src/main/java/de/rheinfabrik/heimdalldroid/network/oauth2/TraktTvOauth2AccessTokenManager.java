@@ -3,9 +3,9 @@ package de.rheinfabrik.heimdalldroid.network.oauth2;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken;
-import de.rheinfabrik.heimdall2.OAuth2AccessTokenManager;
-import de.rheinfabrik.heimdall2.OAuth2AccessTokenStorage;
+import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenManager;
+import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessTokenStorage;
 import de.rheinfabrik.heimdalldroid.TraktTvAPIConfiguration;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.RevokeAccessTokenBody;

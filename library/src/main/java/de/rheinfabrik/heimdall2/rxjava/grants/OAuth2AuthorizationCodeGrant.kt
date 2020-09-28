@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2.grants
+package de.rheinfabrik.heimdall2.rxjava.grants
 
 import de.rheinfabrik.heimdall2.OAuth2AccessToken
 import io.reactivex.Observable

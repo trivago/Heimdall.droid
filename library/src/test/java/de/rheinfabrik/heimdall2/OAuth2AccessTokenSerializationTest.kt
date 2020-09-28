@@ -1,6 +1,7 @@
 package de.rheinfabrik.heimdall2
 
 import com.google.gson.Gson
+import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

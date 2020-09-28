@@ -1,7 +1,7 @@
 package de.rheinfabrik.heimdalldroid.network.oauth2;
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken;
-import de.rheinfabrik.heimdall2.grants.OAuth2RefreshAccessTokenGrant;
+import de.rheinfabrik.heimdall2.rxjava.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2RefreshAccessTokenGrant;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.RefreshTokenRequestBody;
 import io.reactivex.Single;
