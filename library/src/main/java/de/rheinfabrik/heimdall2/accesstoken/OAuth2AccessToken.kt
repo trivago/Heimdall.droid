@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.accesstoken
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

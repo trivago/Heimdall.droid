@@ -2,11 +2,11 @@ package de.rheinfabrik.heimdalldroid.network.oauth2;
 
 import android.net.Uri;
 
-import de.rheinfabrik.heimdall2.grants.OAuth2AuthorizationCodeGrant;
+import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2AuthorizationCodeGrant;
 import io.reactivex.Observable;
 import java.net.URL;
 
-import de.rheinfabrik.heimdall2.OAuth2AccessToken;
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken;
 import de.rheinfabrik.heimdalldroid.network.TraktTvApiFactory;
 import de.rheinfabrik.heimdalldroid.network.models.AccessTokenRequestBody;
 

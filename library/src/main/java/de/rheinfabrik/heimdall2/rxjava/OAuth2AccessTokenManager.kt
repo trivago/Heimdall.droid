@@ -1,7 +1,8 @@
-package de.rheinfabrik.heimdall2
+package de.rheinfabrik.heimdall2.rxjava
 
-import de.rheinfabrik.heimdall2.grants.OAuth2Grant
-import de.rheinfabrik.heimdall2.grants.OAuth2RefreshAccessTokenGrant
+import de.rheinfabrik.heimdall2.accesstoken.OAuth2AccessToken
+import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2Grant
+import de.rheinfabrik.heimdall2.rxjava.grants.OAuth2RefreshAccessTokenGrant
 import io.reactivex.Single
 import java.util.Calendar
 

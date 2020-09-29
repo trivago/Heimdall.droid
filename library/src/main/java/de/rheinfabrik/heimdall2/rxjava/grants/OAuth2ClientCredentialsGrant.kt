@@ -1,4 +1,4 @@
-package de.rheinfabrik.heimdall2.grants
+package de.rheinfabrik.heimdall2.rxjava.grants
 
 abstract class OAuth2ClientCredentialsGrant(
     /**
