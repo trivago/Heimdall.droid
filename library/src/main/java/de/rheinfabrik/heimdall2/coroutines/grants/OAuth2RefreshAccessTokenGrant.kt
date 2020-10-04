@@ -5,7 +5,7 @@ abstract class OAuth2RefreshAccessTokenGrant(
      * REQUIRED
      * The "refresh_token" issued to the client.
      */
-    var refreshToken: String? = null,
+    var refreshToken: String = "",
 
     /**
      * OPTIONAL
