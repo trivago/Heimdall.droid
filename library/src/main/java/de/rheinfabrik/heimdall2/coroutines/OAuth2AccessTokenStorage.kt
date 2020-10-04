@@ -13,7 +13,7 @@ interface OAuth2AccessTokenStorage {
     /**
      * Queries the stored access token.
      *
-     * @return - An Observable emitting the stored access token.
+     * @return - The stored access token.
      */
     suspend fun getStoredAccessToken(): OAuth2AccessToken
 
@@ -27,8 +27,7 @@ interface OAuth2AccessTokenStorage {
     /**
      * Checks whether there is or is not an access token
      *
-     * @return - An Observable emitting true or false based on whether there is or is not an
-     * access token.
+     * @return - True or false based on whether there is or is not an access token.
      */
     suspend fun hasAccessToken(): Boolean
 
