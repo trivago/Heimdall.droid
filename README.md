@@ -1,3 +1,9 @@
+Deprecated Project
+
+⚠️ This project is no longer maintained
+
+This repository is deprecated and will no longer receive updates, bug fixes, or support.
+
 # <img src="https://cloud.githubusercontent.com/assets/460060/8159821/b8bfeb32-136a-11e5-83ed-83b7fe01df3a.jpg" width="30" height="30"> Heimdall
 
 Heimdall is an [OAuth 2.0](https://tools.ietf.org/html/rfc6749) client specifically designed for easy usage and high flexibility. It supports all grants as described in [Section 4](https://tools.ietf.org/html/rfc6749#section-4) as well as refreshing an access token as described in [Section 6](https://tools.ietf.org/html/rfc6749#section-6) of the [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749) specification.
