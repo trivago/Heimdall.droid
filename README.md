@@ -1,4 +1,4 @@
-Deprecated Project
+# Deprecated Project
 
 ⚠️ This project is no longer maintained
 
